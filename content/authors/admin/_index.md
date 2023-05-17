@@ -1,20 +1,20 @@
 ---
 # Display name
-title: Nelson Bighetti
+title: Anastasios Raptis
 
 # Full Name (for SEO)
-first_name: Nelson
-last_name: Bighetti
+first_name: Anastasios
+last_name: Raptis
 
 # Is this the primary user of the site?
 superuser: true
 
 # Role/position
-role: Professor of Artificial Intelligence
+role: Laboratory Teaching Staff
 
 # Organizations/Affiliations
 organizations:
-  - name: Stanford University
+  - name: National Technical University of Athens
     url: ''
 
 # Short bio (displayed in user profile at end of posts)
@@ -44,16 +44,16 @@ education:
 social:
   - icon: envelope
     icon_pack: fas
-    link: 'mailto:test@example.org'
+    link: 'mailto:raptistasos@mail.ntua.gr'
   - icon: twitter
     icon_pack: fab
-    link: https://twitter.com/GeorgeCushen
+    link: https://twitter.com/TasosRaptis
   - icon: google-scholar
     icon_pack: ai
-    link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+    link: https://scholar.google.gr/citations?user=6nYcStwAAAAJ&hl=en&oi=ao
   - icon: github
     icon_pack: fab
-    link: https://github.com/gcushen
+    link: https://github.com/raptistasos
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 # - icon: cv
@@ -61,7 +61,7 @@ social:
 #   link: files/cv.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: ''
+email: 'raptistasos@gmail.com'
 
 # Highlight the author in author lists? (true/false)
 highlight_name: false
