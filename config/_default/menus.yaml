@@ -1,27 +1,72 @@
 # Navigation Links
-#   To link a homepage widget, specify the URL as a hash `#` followed by the filename of the
-  #     desired widget in your `content/home/` folder.
-  #   The weight parameter defines the order that the links will appear in.
+#   Dropdowns: a parent entry sets `identifier`, children reference it via `parent`.
+#   The weight parameter defines the order that the links will appear in.
 
 main:
-  - name: Bio
+  - name: Home
     url: /
     weight: 10
-  - name: Papers
-    url: /#papers
-    weight: 11
-  - name: Talks
-    url: /#talks
-    weight: 12
-  - name: News
-    url: /#news
-    weight: 13
-  - name: Experience
-    url: experience/
+
+  # Research dropdown
+  - identifier: research
+    name: Research
+    url: "#"
     weight: 20
+  - name: Research Areas
+    url: /research/research-areas/
+    parent: research
+    weight: 21
   - name: Projects
-    url: projects/
+    url: /research/projects/
+    parent: research
+    weight: 22
+  - name: Publications
+    url: /research/publications/
+    parent: research
+    weight: 23
+
+  # Lab dropdown
+  - identifier: lab
+    name: Lab
+    url: "#"
     weight: 30
-  - name: Courses
-    url: courses/
+  - name: Facilities & Equipment
+    url: /lab/facilities-equipment/
+    parent: lab
+    weight: 31
+  - name: History
+    url: /lab/history/
+    parent: lab
+    weight: 32
+
+  - name: People
+    url: /people/
     weight: 40
+
+  # Theses dropdown
+  - identifier: theses
+    name: Theses
+    url: "#"
+    weight: 50
+  - name: Past Theses
+    url: /theses/past-theses/
+    parent: theses
+    weight: 51
+  - name: Ongoing Theses
+    url: /theses/ongoing-theses/
+    parent: theses
+    weight: 52
+  - name: Open Theses Subjects
+    url: /theses/open-theses-subjects/
+    parent: theses
+    weight: 53
+
+  - name: Teaching & Courses
+    url: /teaching-courses/
+    weight: 60
+  - name: News
+    url: /news/
+    weight: 70
+  - name: Contact
+    url: /contact/
+    weight: 80

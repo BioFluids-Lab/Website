@@ -1,0 +1,24 @@
+schema: hugoblox/author/v1
+slug: phd-1
+name:
+  display: "[PhD Student Name]"
+  given: "[Given Name]"
+  family: "[Family Name]"
+role: PhD Candidate
+bio: |
+  Placeholder bio — replace with this student's real biography and thesis topic.
+
+affiliations:
+  - name: School of Mechanical Engineering, National Technical University of Athens
+    url: https://www.mech.ntua.gr/
+
+links:
+  - icon: at-symbol
+    url: mailto:example@example.gr
+    label: E-mail
+
+interests:
+  - Cardiovascular & Hemodynamics
+
+user_groups:
+  - PhD Students

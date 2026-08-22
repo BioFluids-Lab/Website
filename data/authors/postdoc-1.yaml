@@ -1,0 +1,24 @@
+schema: hugoblox/author/v1
+slug: postdoc-1
+name:
+  display: "[Postdoctoral Researcher Name]"
+  given: "[Given Name]"
+  family: "[Family Name]"
+role: Postdoctoral Researcher
+bio: |
+  Placeholder bio — replace with this researcher's real biography and research focus.
+
+affiliations:
+  - name: School of Mechanical Engineering, National Technical University of Athens
+    url: https://www.mech.ntua.gr/
+
+links:
+  - icon: at-symbol
+    url: mailto:example@example.gr
+    label: E-mail
+
+interests:
+  - Microfluidics & Lab-on-a-Chip
+
+user_groups:
+  - Postdoctoral Researchers

@@ -1,0 +1,21 @@
+schema: hugoblox/author/v1
+slug: alumnus-1
+name:
+  display: "[Alumnus Name]"
+  given: "[Given Name]"
+  family: "[Family Name]"
+role: Former PhD Student (now at [Current Position])
+bio: |
+  Placeholder bio — replace with this alumnus's real biography and where they are now.
+
+affiliations:
+  - name: School of Mechanical Engineering, National Technical University of Athens
+    url: https://www.mech.ntua.gr/
+
+interests:
+  - Biomedical Device Design & Testing
+
+graduation_year: 2023
+
+user_groups:
+  - Alumni

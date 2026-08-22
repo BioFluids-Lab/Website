@@ -13,19 +13,20 @@ hugoblox:
   # ────────────────────────────────────────────────────────────────────────────
   identity:
     # Site name - shown in navbar, footer, copyright, and browser title by default
-    name: "Your Name"
+    name: "Biofluid Mechanics & Biomedical Technology Lab"
     # Legal entity for copyright notices (defaults to name if not set)
-    organization: ""
+    organization: "National Technical University of Athens"
     # Schema.org type for structured data
-    type: person # person | organization | local_business
+    type: organization # person | organization | local_business
     # Short tagline displayed on your site
-    tagline: ""
+    tagline: "School of Mechanical Engineering, NTUA"
     # Site meta description for search engines and social sharing
-    description: "The highly-customizable Hugo Academic theme powered by HugoBlox
-      Kit. Easily create your personal academic website."
+    description: "The Laboratory of Biofluid Mechanics & Biomedical Technology at
+      the National Technical University of Athens conducts research on biological
+      fluid flows and biomedical devices."
     # Social accounts (used for meta tags like Twitter Cards)
     social:
-      twitter: "GoOwnable" # Twitter/X handle for Twitter Cards (without @)
+      twitter: "" # Twitter/X handle for Twitter Cards (without @)
 
   # ────────────────────────────────────────────────────────────────────────────
   # THEME
@@ -38,9 +39,9 @@ hugoblox:
     pack: "default"
     # Optional: Override theme pack colors
     colors:
-      primary: "" # Tailwind palette name or hex (e.g., "indigo" or "#6366f1")
-      secondary: ""
-      neutral: "" # Affects gray utilities (text-gray-*, bg-gray-*)
+      primary: "blue" # Tailwind palette name or hex (e.g., "indigo" or "#6366f1")
+      secondary: "teal"
+      neutral: "slate" # Affects gray utilities (text-gray-*, bg-gray-*)
     # Optional: Mode-specific color overrides
     colors_light: {}
     colors_dark: {}
@@ -132,13 +133,13 @@ hugoblox:
     # For local_business identity type only
     location:
       address:
-        street: ""
-        city: ""
-        region: ""
-        postal_code: ""
-        country: ""
+        street: "9 Iroon Polytechniou Str., Zografou Campus" # TODO: confirm exact building/room
+        city: "Athens"
+        region: "Attica"
+        postal_code: "15780"
+        country: "Greece"
       coordinates:
-        latitude: null
+        latitude: null # TODO: add exact coordinates from Google Maps
         longitude: null
       phone: ""
     # AI/LLM crawler guidance (llms.txt)
