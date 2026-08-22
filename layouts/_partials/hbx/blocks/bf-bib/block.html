@@ -1,0 +1,79 @@
+{{/* Biofluids: bibliography.
+
+     Pulls real pages from the content tree, so publications stay ordinary
+     Hugo pages with citation export and only their presentation changes. */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+{{ $id := printf "bf-bib-%s" (.wcIdentifier | default "1") }}
+
+{{ $items := where site.RegularPages "Params.tags" "intersect" (slice "Publication") }}
+{{ if index $c "featured_only" }}{{ $items = where $items "Params.featured" true }}{{ end }}
+{{ $items = sort $items "Date" "desc" }}
+{{ with index $c "count" }}{{ $items = first . $items }}{{ end }}
+
+{{/* CSL type to filter key */}}
+{{ $types := dict "article-journal" "journal" "paper-conference" "conference" "article" "preprint" }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p class="bf-dek">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+
+    {{ if index $c "filters" }}
+      <div class="bf-facets">
+        <div class="bf-facet" data-bf-target="#{{ $id }}" data-bf-key="type">
+          <span class="flabel">Type</span>
+          <button type="button" aria-pressed="true" data-bf-f="all">All</button>
+          <button type="button" aria-pressed="false" data-bf-f="journal">Journal</button>
+          <button type="button" aria-pressed="false" data-bf-f="conference">Conference</button>
+          <button type="button" aria-pressed="false" data-bf-f="preprint">Preprint</button>
+        </div>
+      </div>
+    {{ end }}
+
+    <ol class="bf-bib" id="{{ $id }}">
+      {{ range $items }}
+        {{ $pt := "" }}
+        {{ with .Params.publication_types }}{{ $pt = index . 0 }}{{ end }}
+        <li data-type="{{ index $types $pt | default "journal" }}">
+          <span class="yr">{{ .Date.Format "2006" }}</span>
+          <div>
+            <p class="ti"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+            {{ with .Params.authors }}
+              {{/* Lab members are emphasised, external co-authors are not.
+                   has_data is true only for slugs with a data/authors profile,
+                   which is exactly the distinction we want to draw. */}}
+              <p class="au">
+                {{- range $i, $a := . -}}
+                  {{- if $i }}, {{ end -}}
+                  {{- $pr := partial "functions/get_author_profile" (printf "%v" $a) -}}
+                  {{- if $pr.has_data -}}
+                    <em><a href="{{ printf "/authors/%s/" $pr.slug | relLangURL }}">{{ $pr.title }}</a></em>
+                  {{- else -}}
+                    {{ $pr.title }}
+                  {{- end -}}
+                {{- end -}}
+              </p>
+            {{ end }}
+            {{ with .Params.publication }}<p class="ve">{{ . | $page.RenderString }}</p>{{ end }}
+          </div>
+          <span class="lk">
+            {{ range .Params.links }}
+              {{ if .url }}<a href="{{ .url }}">{{ .type }}</a>{{ end }}
+            {{ end }}
+            <a href="{{ .RelPermalink }}">Cite</a>
+          </span>
+        </li>
+      {{ end }}
+    </ol>
+    <p class="bf-noresults">No publications match this filter.</p>
+
+    {{ with index $c "cta" }}
+      <div class="bf-acts" style="margin-top:28px">
+        <a class="bf-btn bf-btn--ghost" href="{{ .url | relLangURL }}">{{ .text }} <i class="bf-arrow">&rarr;</i></a>
+      </div>
+    {{ end }}
+  </div>
+</div>

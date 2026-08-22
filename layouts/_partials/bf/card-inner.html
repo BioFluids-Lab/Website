@@ -1,0 +1,16 @@
+{{/* Body of a plate card, shared by the linked and unlinked variants so the
+     markup does not have to be written twice. args: page, item */}}
+{{ $page := .page }}
+{{ $i := .item }}
+
+{{ partial "bf/plate.html" (dict
+  "page" $page
+  "image" $i.image
+  "alt" $i.name
+  "mode" $i.mode
+  "seed" $i.seed) }}
+<h3>{{ $i.name }}</h3>
+{{ with $i.description }}<p>{{ . }}</p>{{ end }}
+{{ with $i.topics }}
+  <span class="bf-tags">{{ range . }}<span>{{ . }}</span>{{ end }}</span>
+{{ end }}

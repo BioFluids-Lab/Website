@@ -1,0 +1,21 @@
+{{/* Biofluids: paired onward links */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p class="bf-dek">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+    <div class="bf-pair">
+      {{ range index $c "items" }}
+        <a class="bf-pcard" href="{{ .url | relLangURL }}">
+          <h3>{{ .name }}</h3>
+          {{ with .description }}<p>{{ . }}</p>{{ end }}
+          <span class="go">{{ .cta | default "Read more" }} &rarr;</span>
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</div>

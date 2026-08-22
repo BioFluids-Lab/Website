@@ -1,0 +1,48 @@
+# HugoBlox Theme Pack — Biofluids
+#
+# The palette reads as a velocity colourmap: ink through petrol and teal to
+# rust, the same direction a PIV field is coloured. Rust is the single warm
+# accent and is used sparingly.
+#
+# Project data/ overrides the module's, so this file adds a pack without
+# touching anything HugoBlox ships.
+
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Biofluids"
+    vendor: "biofluids-lab"
+    version: "1.0.0"
+    license: "MIT"
+
+  type: "dual"
+
+  light:
+    colors:
+      primary: "#0E5058" # petrol
+      secondary: "#227A82" # teal
+      neutral: "slate"
+    surfaces:
+      background: "#EBEEEB" # cool paper, faint green bias toward the accent
+      foreground: "#151E20"
+      header:
+        background: "#EBEEEB"
+        foreground: "#151E20"
+      footer:
+        background: "#E3E7E3"
+        foreground: "#151E20"
+
+  dark:
+    colors:
+      primary: "#63BAC0"
+      secondary: "#4FA5AC"
+      neutral: "slate"
+    surfaces:
+      background: "#080D0F"
+      foreground: "#DCE5E2"
+      header:
+        background: "#080D0F"
+        foreground: "#DCE5E2"
+      footer:
+        background: "#0E1618"
+        foreground: "#DCE5E2"

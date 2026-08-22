@@ -13,7 +13,7 @@ hugoblox:
   # ────────────────────────────────────────────────────────────────────────────
   identity:
     # Site name - shown in navbar, footer, copyright, and browser title by default
-    name: "Biofluid Mechanics & Biomedical Technology Lab"
+    name: "Biofluid Mechanics & Biomedical Technology"
     # Legal entity for copyright notices (defaults to name if not set)
     organization: "National Technical University of Athens"
     # Schema.org type for structured data
@@ -36,12 +36,9 @@ hugoblox:
     # Mode: 'light', 'dark', or 'system' (follows OS preference)
     mode: system
     # Theme pack: name from data/themes/ or { light: "x", dark: "y" } for mix-and-match
-    pack: "default"
-    # Optional: Override theme pack colors
-    colors:
-      primary: "blue" # Tailwind palette name or hex (e.g., "indigo" or "#6366f1")
-      secondary: "teal"
-      neutral: "slate" # Affects gray utilities (text-gray-*, bg-gray-*)
+    pack: "biofluids"
+    # Colours come from the pack; leave these empty so it stays the one source
+    colors: {}
     # Optional: Mode-specific color overrides
     colors_light: {}
     colors_dark: {}
@@ -62,7 +59,9 @@ hugoblox:
   # ────────────────────────────────────────────────────────────────────────────
   typography:
     # Theme pack: name from data/fonts/
-    pack: "academic"
+    # Every family in this pack carries Greek; the stock `academic` pack's
+    # Lora does not, so Greek headings there fall back silently.
+    pack: "biofluids"
 
   # ────────────────────────────────────────────────────────────────────────────
   # LAYOUT
@@ -70,11 +69,12 @@ hugoblox:
   # ────────────────────────────────────────────────────────────────────────────
   layout:
     # Border radius: 'none', 'sm', 'md', 'lg', or 'full'
-    radius: "md"
+    # Square corners throughout; rounded cards read as SaaS, not laboratory.
+    radius: "none"
     # Spacing density: 'compact', 'comfortable', or 'spacious'
-    spacing: "spacious"
+    spacing: "comfortable"
     # Avatar shape in author profiles
-    avatar_shape: circle # circle | square | rounded
+    avatar_shape: square # circle | square | rounded
 
   # ────────────────────────────────────────────────────────────────────────────
   # HEADER
@@ -91,7 +91,8 @@ hugoblox:
     # Feature toggles
     search: true
     theme_toggle: true
-    theme_picker: true
+    # The lab has one identity; offering eleven preset themes says otherwise.
+    theme_picker: false
     language_switcher: true
     # Call-to-action button
     cta:

@@ -1,0 +1,17 @@
+{{/* Biofluids: readout band.
+
+     Quantities only. Tinted rather than ruled, so it doubles as the break
+     between hero and content without drawing a line. */}}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+
+<div class="bf-readout bf-block">
+  <div class="bf-wrap">
+    {{ range index $c "items" }}
+      <span class="cell">
+        <span class="v">{{ .value }}</span>
+        <span class="k">{{ .label }}</span>
+      </span>
+    {{ end }}
+  </div>
+</div>

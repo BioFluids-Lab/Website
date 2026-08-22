@@ -1,0 +1,28 @@
+{{/* Biofluids: taught courses */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p class="bf-dek">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+    <ul class="bf-courses">
+      {{ range index $c "items" }}
+        <li>
+          <span class="code">{{ .code }}</span>
+          <div>
+            <h3>{{ .name }}</h3>
+            {{ with .description }}<p>{{ . }}</p>{{ end }}
+          </div>
+          <span class="when">
+            {{ with .level }}{{ . }}<br />{{ end }}
+            {{ with .semester }}{{ . }}<br />{{ end }}
+            {{ with .teacher }}{{ . }}{{ end }}
+          </span>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>

@@ -3,10 +3,16 @@ title: People
 type: landing
 
 sections:
+  - block: bf-phead
+    content:
+      eyebrow: Laboratory
+      title: People
+      text: >-
+        The laboratory is a small group. Most of the measuring is done by doctoral
+        and diploma students, supervised across the four research areas.
+
   - block: team-showcase
     content:
-      title: Our Team
-      subtitle: Laboratory of Biofluid Mechanics & Biomedical Technology
       user_groups:
         - Principal Investigators
         - Postdoctoral Researchers
@@ -16,8 +22,8 @@ sections:
           sort_by: graduation_year
           sort_ascending: false
       cta:
-        text: Open Theses Subjects
-        url: /theses/open-theses-subjects/
+        text: Theses subjects
+        url: /theses-subjects/
     design:
       show_role: true
       show_organizations: false

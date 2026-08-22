@@ -1,0 +1,32 @@
+{{/* Biofluids: doctoral and postdoctoral calls.
+
+     The whole block is skipped when no call is listed, so an empty heading
+     never sits on the page telling a reader nothing. */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+{{ $items := index $c "items" }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p class="bf-dek">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+
+    {{ range $items }}
+      <div class="bf-call">
+        <div>
+          <span class="bf-chip bf-chip--live">{{ .status | default "Open call" }}</span>
+          <h3>{{ .title }}</h3>
+          {{ with .description }}<p>{{ . }}</p>{{ end }}
+          {{ with .meta }}<p class="meta">{{ . }}</p>{{ end }}
+        </div>
+        {{ with .url }}
+          <a class="bf-btn" href="{{ . | relLangURL }}">Read the call <i class="bf-arrow">&rarr;</i></a>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    {{ with index $c "note" }}<p class="bf-callnote">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+  </div>
+</div>

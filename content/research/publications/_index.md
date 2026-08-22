@@ -1,12 +1,17 @@
 ---
 title: Publications
-cms_exclude: true
+type: landing
 
-# View.
-view: citation
+sections:
+  - block: bf-phead
+    content:
+      eyebrow: Research
+      title: Publications
+      text: >-
+        Journal articles, conference papers and preprints from the laboratory.
+        Every entry carries an export-ready citation.
 
-# Optional header image (relative to `static/media/` folder).
-banner:
-  caption: ''
-  image: ''
+  - block: bf-bib
+    content:
+      filters: true
 ---

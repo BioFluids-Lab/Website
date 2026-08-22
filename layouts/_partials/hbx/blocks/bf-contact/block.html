@@ -1,0 +1,39 @@
+{{/* Biofluids: contact details beside a plate standing in for the map */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+{{ $plate := index $c "plate" | default dict }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    <div class="bf-contact">
+      <div>
+        <dl>
+          {{ range index $c "items" }}
+            <dt>{{ .name }}</dt>
+            <dd>
+              {{ if .email }}<a href="mailto:{{ .email }}">{{ .email }}</a>
+              {{ else if .url }}<a href="{{ .url }}">{{ .value }}</a>
+              {{ else }}{{ .value | safeHTML }}{{ end }}
+            </dd>
+          {{ end }}
+        </dl>
+        <div class="bf-acts">
+          {{ range index $c "actions" }}
+            <a class="bf-btn{{ if .ghost }} bf-btn--ghost{{ end }}" href="{{ .url | relLangURL }}">{{ .text }}</a>
+          {{ end }}
+        </div>
+      </div>
+      {{ partial "bf/plate.html" (dict
+        "page" $page
+        "image" (index $plate "image")
+        "caption" (index $plate "caption")
+        "tag" (index $plate "tag")
+        "scale" (index $plate "scale")
+        "mode" (index $plate "mode")
+        "seed" (index $plate "seed")) }}
+    </div>
+  </div>
+</div>

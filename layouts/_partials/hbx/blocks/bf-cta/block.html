@@ -1,0 +1,21 @@
+{{/* Biofluids: closing call to action, over a slow flow field */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+
+<div class="bf-cta bf-block">
+  <canvas data-bf-flow data-bf-anim="1" data-bf-dim="1"
+          data-bf-mode="{{ index $c "mode" | default "shear" }}"
+          data-bf-seed="{{ index $c "seed" | default 19 }}" aria-hidden="true"></canvas>
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2>{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p>{{ . | emojify | $page.RenderString }}</p>{{ end }}
+    <div class="bf-acts">
+      {{ range index $c "actions" }}
+        <a class="bf-btn{{ if .ghost }} bf-btn--ghost{{ end }}" href="{{ .url | relLangURL }}">
+          {{ .text }}{{ if not .ghost }} <i class="bf-arrow">&rarr;</i>{{ end }}
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</div>

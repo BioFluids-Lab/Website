@@ -1,0 +1,45 @@
+# HugoBlox Font Pack — Biofluids
+#
+# Every family here carries Greek, which the bilingual version of the site
+# needs and which rules out most modern display faces. Verified against the
+# Google Fonts API: the stock `academic` pack's Lora has no Greek at all, so
+# Greek headings there fall back silently to a system serif.
+#
+#   Commissioner    display, UI, nav   variable 300-800, Greek by design
+#                                      (Kostas Bartsokas)
+#   Source Serif 4  ledes, abstracts   Greek
+#   JetBrains Mono  captions, data     Greek, and already bundled by blox
+
+hugoblox:
+  meta:
+    format: "hugoblox-font@1"
+    name: "Biofluids"
+    vendor: "biofluids-lab"
+    version: "1.0.0"
+    license: "MIT"
+    style: "sans"
+    description: "Greek-capable technical pairing for the Biofluids lab"
+
+  families:
+    heading: "Commissioner"
+    body: "Commissioner"
+    code: "JetBrains Mono"
+
+  weights:
+    heading: [700, 800]
+    body: [400, 600]
+    code: [400, 500, 700]
+
+  leading:
+    heading: 1.12
+    body: 1.6
+    code: 1.55
+
+  tracking:
+    heading: "-0.028em"
+    body: "0"
+
+  variable:
+    heading: true
+    body: true
+    code: true

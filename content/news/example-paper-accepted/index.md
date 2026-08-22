@@ -5,7 +5,7 @@ date: 2026-06-01
 authors:
   - pi
 tags:
-  - Publication
+  - Paper
 ---
 
 Placeholder text. Announce the accepted paper, its authors, and a link to the publication page.

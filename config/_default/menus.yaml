@@ -1,16 +1,17 @@
 # Navigation Links
 #   Dropdowns: a parent entry sets `identifier`, children reference it via `parent`.
-#   The weight parameter defines the order that the links will appear in.
+#   A parent's own `url` points at its first child, matching the pattern the
+#   theme's navbar expects.
 
 main:
   - name: Home
     url: /
     weight: 10
 
-  # Research dropdown
+  # Research
   - identifier: research
     name: Research
-    url: "#"
+    url: /research/research-areas/
     weight: 20
   - name: Research Areas
     url: /research/research-areas/
@@ -25,43 +26,49 @@ main:
     parent: research
     weight: 23
 
-  # Lab dropdown
+  # Lab
   - identifier: lab
     name: Lab
-    url: "#"
+    url: /lab/facilities-equipment/
     weight: 30
   - name: Facilities & Equipment
     url: /lab/facilities-equipment/
     parent: lab
     weight: 31
+  - name: Partners
+    url: /lab/partners/
+    parent: lab
+    weight: 32
   - name: History
     url: /lab/history/
     parent: lab
-    weight: 32
+    weight: 33
 
   - name: People
     url: /people/
     weight: 40
 
-  # Theses dropdown
-  - identifier: theses
-    name: Theses
-    url: "#"
+  # For Students
+  #   Theses subjects sits at /theses-subjects/ rather than under /theses/ so
+  #   the two entries do not both match on path prefix in the active-link check.
+  - identifier: students
+    name: For Students
+    url: /theses/
     weight: 50
-  - name: Past Theses
-    url: /theses/past-theses/
-    parent: theses
+  - name: Theses
+    url: /theses/
+    parent: students
     weight: 51
-  - name: Ongoing Theses
-    url: /theses/ongoing-theses/
-    parent: theses
+  - name: Theses Subjects
+    url: /theses-subjects/
+    parent: students
     weight: 52
-  - name: Open Theses Subjects
-    url: /theses/open-theses-subjects/
-    parent: theses
+  - name: How to Apply
+    url: /how-to-apply/
+    parent: students
     weight: 53
 
-  - name: Teaching & Courses
+  - name: Teaching
     url: /teaching-courses/
     weight: 60
   - name: News

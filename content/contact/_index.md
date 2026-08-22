@@ -1,34 +1,39 @@
 ---
-title: 'Contact'
-summary: ''
-date: 2026-08-14
+title: Contact
 type: landing
 
 sections:
-  - block: contact-info
+  - block: bf-phead
     content:
-      title: Contact Us
-      subtitle: Get in touch with our research team
-      visit_title: Visit Our Lab
-      connect_title: Connect With Us
-      address:
-        lines:
-          - Laboratory of Biofluid Mechanics & Biomedical Technology
-          - School of Mechanical Engineering
-          - National Technical University of Athens
-          - 9 Iroon Polytechniou Str., Zografou Campus
-          - 15780 Athens, Greece
-      office_hours:
-        - "Placeholder — e.g. Monday - Friday: 9:00 AM - 5:00 PM"
-      email: "lab@example.gr"
-      phone: ""
-      social: []
-      prospective:
-        title: Prospective Students
-        text: Interested in a thesis or research position? See our Open Theses Subjects.
-        button:
-          text: View Open Theses Subjects
-          url: /theses/open-theses-subjects/
-      map_url: "https://maps.google.com/?q=National+Technical+University+of+Athens+Zografou+Campus"
-      show_form: false
+      eyebrow: Laboratory
+      title: Contact
+      text: >-
+        The laboratory is on the Zografou campus, in the School of Mechanical
+        Engineering building. Visitors are welcome by arrangement.
+
+  - block: bf-contact
+    content:
+      items:
+        - name: Address
+          value: "School of Mechanical Engineering<br />National Technical University of Athens<br />9 Iroon Polytechniou Street<br />Zografou Campus, 15780 Athens"
+        - name: Email
+          email: biofluids@mail.ntua.gr
+        - name: Telephone
+          value: "+30 210 772 XXXX"
+        - name: Director
+          value: A. Papadopoulos
+        - name: Visiting
+          value: By arrangement, weekdays
+      actions:
+        - text: Theses subjects
+          url: /theses-subjects/
+        - text: Find a person
+          url: /people/
+          ghost: true
+      plate:
+        tag: Map
+        scale: 200 m
+        mode: wake
+        seed: 88
+        caption: Zografou campus. A live map embed replaces this plate once coordinates are confirmed.
 ---

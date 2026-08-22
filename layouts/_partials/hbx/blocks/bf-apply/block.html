@@ -1,0 +1,27 @@
+{{/* Biofluids: how to apply, prose beside the address to write to */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+{{ $box := index $c "mailbox" | default dict }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    <div class="bf-apply">
+      <div>
+        {{ with index $c "text" }}<p>{{ . | emojify | $page.RenderString }}</p>{{ end }}
+        {{ with index $c "cta" }}
+          <div class="bf-acts">
+            <a class="bf-btn bf-btn--ghost" href="{{ .url | relLangURL }}">{{ .text }} <i class="bf-arrow">&rarr;</i></a>
+          </div>
+        {{ end }}
+      </div>
+      <div class="bf-mailbox">
+        <span class="lbl">{{ index $box "label" | default "Write to" }}</span>
+        <a class="mail" href="mailto:{{ index $box "email" }}">{{ index $box "email" }}</a>
+        {{ with index $box "note" }}<p>{{ . }}</p>{{ end }}
+      </div>
+    </div>
+  </div>
+</div>

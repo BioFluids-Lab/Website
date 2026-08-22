@@ -1,0 +1,30 @@
+{{/* Biofluids: plate cards, used for research areas and projects */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p class="bf-dek">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+    <div class="bf-cards">
+      {{ range index $c "items" }}
+        {{/* Two literal branches rather than a variable tag name: Go's
+             html/template will not build a tag out of a variable and escapes
+             the whole thing to text if you try. */}}
+        {{ $inner := partial "bf/card-inner.html" (dict "page" $page "item" .) }}
+        {{ if .url }}
+          <a class="bf-card" href="{{ .url | relLangURL }}">{{ $inner }}</a>
+        {{ else }}
+          <div class="bf-card">{{ $inner }}</div>
+        {{ end }}
+      {{ end }}
+    </div>
+    {{ with index $c "cta" }}
+      <div class="bf-acts" style="margin-top:28px">
+        <a class="bf-btn bf-btn--ghost" href="{{ .url | relLangURL }}">{{ .text }} <i class="bf-arrow">&rarr;</i></a>
+      </div>
+    {{ end }}
+  </div>
+</div>

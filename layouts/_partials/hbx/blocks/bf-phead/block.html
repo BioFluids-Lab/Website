@@ -1,0 +1,12 @@
+{{/* Biofluids: page header */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+
+<div class="bf-phead bf-block">
+  <div class="bf-wrap">
+    {{ with index $c "eyebrow" }}<p class="bf-crumb">{{ . }}</p>{{ end }}
+    {{ with index $c "title" }}<h1>{{ . | emojify | $page.RenderString }}</h1>{{ end }}
+    {{ with index $c "text" }}<p class="bf-plede">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+  </div>
+</div>

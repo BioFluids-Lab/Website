@@ -1,4 +1,6 @@
 ---
 title: News
-view: article-grid
+cascade:
+  showDate: true
+  showAuthor: true
 ---

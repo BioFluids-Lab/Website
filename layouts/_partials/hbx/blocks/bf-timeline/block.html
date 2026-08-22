@@ -1,0 +1,23 @@
+{{/* Biofluids: history. The years are dates, not ordinals. */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p class="bf-dek">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+    <div class="bf-tl">
+      {{ range index $c "items" }}
+        <div class="ev">
+          <span class="yr">{{ .date }}</span>
+          <div>
+            <h3>{{ .title }}</h3>
+            {{ with .text }}<p>{{ . }}</p>{{ end }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

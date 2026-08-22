@@ -1,0 +1,33 @@
+{{/* Biofluids: alternating detail rows for the research areas page */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p class="bf-dek">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+    <div class="bf-detail">
+      {{ range index $c "items" }}
+        <div class="bf-drow">
+          {{ partial "bf/plate.html" (dict
+            "page" $page "image" .image "alt" .name
+            "caption" .caption "mode" .mode "seed" .seed) }}
+          <div>
+            <h3>{{ .name }}</h3>
+            {{ range .paragraphs }}<p>{{ . | $page.RenderString }}</p>{{ end }}
+            {{ with .topics }}
+              <span class="bf-tags">{{ range . }}<span>{{ . }}</span>{{ end }}</span>
+            {{ end }}
+            {{ with .links }}
+              <span class="bf-links">
+                {{ range . }}<a href="{{ .url | relLangURL }}">{{ .text }}</a>{{ end }}
+              </span>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

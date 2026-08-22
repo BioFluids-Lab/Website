@@ -1,0 +1,58 @@
+{{/* Biofluids: row list, used for theses and news.
+
+     Facets are optional and combine: an item survives only if it satisfies
+     every bar. Filtering is progressive, the full list renders without JS. */}}
+{{ $page := .wcPage }}
+{{ $c := .wcBlock.content }}
+{{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
+{{ $d := .wcBlock.design | default dict }}
+{{ $id := printf "bf-list-%s" (.wcIdentifier | default "1") }}
+{{ $facets := index $c "facets" }}
+{{ $wide := index $c "show_supervisor" }}
+
+<div class="bf-sec bf-block{{ if index $d "tint" }} bf-sec--tint{{ end }}">
+  <div class="bf-wrap">
+    {{ with index $c "title" }}<h2 class="bf-h2">{{ . | emojify | $page.RenderString }}</h2>{{ end }}
+    {{ with index $c "text" }}<p class="bf-dek">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+
+    {{ with $facets }}
+      <div class="bf-facets">
+        {{ range . }}
+          <div class="bf-facet" data-bf-target="#{{ $id }}" data-bf-key="{{ .key }}">
+            <span class="flabel">{{ .label }}</span>
+            <button type="button" aria-pressed="true" data-bf-f="all">All</button>
+            {{ range .options }}
+              <button type="button" aria-pressed="false" data-bf-f="{{ .value }}">{{ .text }}</button>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    <ul class="bf-rows{{ if $wide }} bf-rows--wide{{ end }}" id="{{ $id }}">
+      {{ range index $c "items" }}
+        <li{{ range $k, $v := .facets }} data-{{ $k }}="{{ $v }}"{{ end }}>
+          <a href="{{ with .url }}{{ . | relLangURL }}{{ else }}#{{ end }}">
+            <span class="d">{{ .date }}</span>
+            <span class="h">{{ .title }}{{ with .subtitle }}<small>{{ . }}</small>{{ end }}</span>
+            {{ if $wide }}<span class="who">{{ with .supervisor }}{{ . }}{{ end }}</span>{{ end }}
+            {{ if .chips }}
+              <span class="bf-rowtags">
+                {{ range .chips }}<span class="bf-chip{{ with .style }} bf-chip--{{ . }}{{ end }}">{{ .text }}</span>{{ end }}
+              </span>
+            {{ else }}
+              <span class="k">{{ with .category }}{{ . }}{{ end }}</span>
+            {{ end }}
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+    <p class="bf-noresults">No entries match this combination.</p>
+
+    {{ with index $c "cta" }}
+      <div class="bf-acts" style="margin-top:28px">
+        <a class="bf-btn bf-btn--ghost" href="{{ .url | relLangURL }}">{{ .text }} <i class="bf-arrow">&rarr;</i></a>
+      </div>
+    {{ end }}
+  </div>
+</div>

@@ -1,0 +1,37 @@
+{{/* Biofluids plate.
+
+     One image treatment for the whole site: fixed ratio, hairline frame,
+     mono caption, faint grain. Uneven source material then reads as one
+     deliberate set rather than a run of individually weak photographs.
+
+     Falls back to a generated flow field when no image is supplied, so a
+     page is never waiting on a photograph to look finished.
+
+     args: page, image, alt, caption, tag, scale, mode, seed, anim, dim, class */}}
+
+{{ $page := .page }}
+{{ $img := "" }}
+{{ with .image }}
+  {{ $res := "" }}
+  {{ with $page }}{{ $res = .Resources.GetMatch (printf "%v" $) }}{{ end }}
+  {{ if $res }}{{ $img = $res.RelPermalink }}{{ else }}{{ $img = printf "%v" . }}{{ end }}
+{{ end }}
+
+<figure class="bf-plate {{ with .class }}{{ . }}{{ end }}">
+  <div class="bf-plate__frame">
+    {{ with .tag }}<span class="bf-plate__tag">{{ . }}</span>{{ end }}
+    {{ if $img }}
+      <img src="{{ $img }}" alt="{{ with .alt }}{{ . }}{{ else }}{{ with $.caption }}{{ . }}{{ end }}{{ end }}" loading="lazy" />
+    {{ else }}
+      <canvas
+        data-bf-flow
+        data-bf-mode="{{ .mode | default "vortex" }}"
+        data-bf-seed="{{ .seed | default 7 }}"
+        {{ with .anim }}data-bf-anim="1"{{ end }}
+        {{ with .dim }}data-bf-dim="1"{{ end }}
+        {{ with .alt }}aria-label="{{ . }}"{{ else }}aria-hidden="true"{{ end }}></canvas>
+    {{ end }}
+    {{ with .scale }}<span class="bf-plate__scale"><i></i>{{ . }}</span>{{ end }}
+  </div>
+  {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
