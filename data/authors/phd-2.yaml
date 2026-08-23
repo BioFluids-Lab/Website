@@ -1,19 +1,19 @@
 schema: hugoblox/author/v1
-slug: postdoc-1
+slug: phd-2
 name:
-  display: "[Postdoctoral Researcher Name]"
+  display: "[PhD Student Name]"
   given: "[Given Name]"
   family: "[Family Name]"
-role: Postdoctoral Researcher
+role: PhD Candidate
 bio: |
-  Placeholder bio — replace with this researcher's real biography and research focus.
+  Placeholder bio — replace with this student's real biography and thesis topic.
 
 affiliations:
   - name: School of Mechanical Engineering, National Technical University of Athens
     url: https://www.mech.ntua.gr/
 
 interests:
-  - Microfluidics & Lab-on-a-Chip
+  - Respiratory Flows
 
 links:
   - icon: hero/envelope
@@ -22,12 +22,9 @@ links:
   - icon: academicons/orcid
     url: https://orcid.org/TODO
     label: ORCID
-  - icon: academicons/google-scholar
-    url: https://scholar.google.com/citations?user=TODO
-    label: Google Scholar
   - icon: brands/linkedin
     url: https://www.linkedin.com/in/TODO
     label: LinkedIn
 
 user_groups:
-  - Postdoctoral Researchers
+  - PhD Students

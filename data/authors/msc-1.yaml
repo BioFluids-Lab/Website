@@ -12,13 +12,16 @@ affiliations:
   - name: School of Mechanical Engineering, National Technical University of Athens
     url: https://www.mech.ntua.gr/
 
-links:
-  - icon: at-symbol
-    url: mailto:example@example.gr
-    label: E-mail
-
 interests:
   - Flow Imaging & Diagnostics
+
+links:
+  - icon: hero/envelope
+    url: "mailto:TODO@mail.ntua.gr"
+    label: E-mail
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/TODO
+    label: LinkedIn
 
 user_groups:
   - MSc / Undergraduate Students

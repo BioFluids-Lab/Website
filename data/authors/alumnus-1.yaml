@@ -17,5 +17,13 @@ interests:
 
 graduation_year: 2023
 
+links:
+  - icon: hero/globe-alt
+    url: https://TODO.example.org/
+    label: Personal site
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/TODO
+    label: LinkedIn
+
 user_groups:
   - Alumni

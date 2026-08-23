@@ -3,7 +3,7 @@ title: "Example: [Student Name] successfully defends [Diploma/MSc] thesis"
 summary: "Placeholder news item — replace with a real announcement."
 date: 2026-03-15
 authors:
-  - pi
+  - christos-manopoulos
 tags:
   - Theses
 ---

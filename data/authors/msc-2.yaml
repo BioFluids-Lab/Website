@@ -1,10 +1,10 @@
 schema: hugoblox/author/v1
-slug: phd-1
+slug: msc-2
 name:
-  display: "[PhD Student Name]"
+  display: "[MSc / Undergraduate Student Name]"
   given: "[Given Name]"
   family: "[Family Name]"
-role: PhD Candidate
+role: MSc Student
 bio: |
   Placeholder bio — replace with this student's real biography and thesis topic.
 
@@ -13,18 +13,15 @@ affiliations:
     url: https://www.mech.ntua.gr/
 
 interests:
-  - Cardiovascular & Hemodynamics
+  - Biomedical Device Design & Testing
 
 links:
   - icon: hero/envelope
     url: "mailto:TODO@mail.ntua.gr"
     label: E-mail
-  - icon: academicons/orcid
-    url: https://orcid.org/TODO
-    label: ORCID
   - icon: brands/linkedin
     url: https://www.linkedin.com/in/TODO
     label: LinkedIn
 
 user_groups:
-  - PhD Students
+  - MSc / Undergraduate Students

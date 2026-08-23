@@ -3,7 +3,7 @@ title: "Example: Paper accepted at [Conference/Journal Name]"
 summary: "Placeholder news item — replace with a real announcement."
 date: 2026-06-01
 authors:
-  - pi
+  - christos-manopoulos
 tags:
   - Paper
 ---

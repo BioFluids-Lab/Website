@@ -14,7 +14,7 @@ sections:
   - block: team-showcase
     content:
       user_groups:
-        - Principal Investigators
+        - Professors
         - Postdoctoral Researchers
         - PhD Students
         - MSc / Undergraduate Students

@@ -1,7 +1,7 @@
 ---
 title: "Example: Microfluidic Characterization of Shear-Sensitive Blood Analogues"
 authors:
-- pi
+- christos-manopoulos
 date: "2024-09-01T00:00:00Z"
 
 # Schedule page publish date (NOT publication's date).

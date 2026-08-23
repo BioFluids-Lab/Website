@@ -1,7 +1,7 @@
 ---
 title: "Example: Computational Modeling of Aneurysm Hemodynamics"
 authors:
-- pi
+- christos-manopoulos
 date: "2026-04-01T00:00:00Z"
 
 # Schedule page publish date (NOT publication's date).

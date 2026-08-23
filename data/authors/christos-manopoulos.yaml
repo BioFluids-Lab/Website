@@ -1,0 +1,46 @@
+schema: hugoblox/author/v1
+slug: christos-manopoulos
+name:
+  given: Christos
+  family: Manopoulos
+  display: Christos Manopoulos
+postnominals:
+  - PhD
+role: Professor
+bio: |
+  TODO — replace with Prof. Manopoulos's own biography, research focus and
+  background. Nothing here was written by the lab yet.
+
+affiliations:
+  - name: School of Mechanical Engineering, National Technical University of Athens
+    url: https://www.mech.ntua.gr/
+
+interests:
+  - Biofluid Mechanics
+  - Cardiovascular Flows
+  - Biomedical Technology
+
+# TODO — every url below is a placeholder. Replace the TODO tokens with the
+# real address, number and profile ids, or delete the lines you do not want.
+links:
+  - icon: hero/envelope
+    url: "mailto:TODO@mail.ntua.gr"
+    label: E-mail
+  - icon: hero/phone
+    url: "tel:+30210772TODO"
+    label: Telephone
+  - icon: academicons/orcid
+    url: https://orcid.org/TODO
+    label: ORCID
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/citations?user=TODO
+    label: Google Scholar
+  - icon: academicons/scopus
+    url: https://www.scopus.com/authid/detail.uri?authorId=TODO
+    label: Scopus
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/TODO
+    label: LinkedIn
+
+user_groups:
+  - Professors

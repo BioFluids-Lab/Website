@@ -91,10 +91,10 @@ sections:
       title: The people running the rigs
       subtitle: ""
       text: >-
-        One principal investigator, a postdoctoral cohort, and the doctoral and
-        diploma students who do most of the measuring.
+        The professors, a postdoctoral cohort, and the doctoral and diploma
+        students who do most of the measuring.
       user_groups:
-        - Principal Investigators
+        - Professors
         - Postdoctoral Researchers
       cta:
         text: Meet the full team
