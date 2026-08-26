@@ -68,12 +68,12 @@ jobs:
         if: ${{ hashFiles('publications.bib') != '' }}
         run: |
           echo "🚀 Starting publication import..."
-          academic import publications.bib content/publications/ --compact --verbose
+          academic import publications.bib content/research/publications/ --compact --verbose
           echo "✅ Publication import completed successfully"
 
           # Verify that files were created
-          if [ -d "content/publications" ] && [ "$(ls -A content/publications/)" ]; then
-            echo "📚 Publications imported: $(ls content/publications/ | wc -l) items"
+          if [ -d "content/research/publications" ] && [ "$(ls -A content/research/publications/)" ]; then
+            echo "📚 Publications imported: $(ls content/research/publications/ | wc -l) items"
           else
             echo "⚠️ No publications were imported"
           fi
@@ -88,14 +88,14 @@ jobs:
           body: |
             🔄 **Automated Publication Import**
 
-            This PR automatically imports the latest publications from `publications.bib` to `content/publications/`.
+            This PR automatically imports the latest publications from `publications.bib` to `content/research/publications/`.
 
             **Changes:**
             - 📚 Updated publication entries
             - 🏷️ Processed bibliographic data
 
             ---
-            将最新的出版物从`publications.bib`导入到`content/publications/`。
+            将最新的出版物从`publications.bib`导入到`content/research/publications/`。
 
             📖 [View Documentation](https://github.com/GetRD/academic-file-converter)
           base: main

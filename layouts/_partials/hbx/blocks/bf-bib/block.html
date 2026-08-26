@@ -8,7 +8,11 @@
 {{ $d := .wcBlock.design | default dict }}
 {{ $id := printf "bf-bib-%s" (.wcIdentifier | default "1") }}
 
-{{ $items := where site.RegularPages "Params.tags" "intersect" (slice "Publication") }}
+{{/* A publication is a page that declares a CSL publication_type. The
+     earlier test — tags containing "Publication" — only matched pages
+     written by hand: the BibTeX importer emits publication_types but no
+     such tag, so every imported paper was silently invisible here. */}}
+{{ $items := where site.RegularPages "Params.publication_types" "!=" nil }}
 {{ if index $c "featured_only" }}{{ $items = where $items "Params.featured" true }}{{ end }}
 {{ $items = sort $items "Date" "desc" }}
 {{ with index $c "count" }}{{ $items = first . $items }}{{ end }}
@@ -61,7 +65,7 @@
           </div>
           <span class="lk">
             {{ range .Params.links }}
-              {{ if .url }}<a href="{{ .url }}">{{ .type }}</a>{{ end }}
+              {{ if .url }}<a href="{{ .url }}">{{ .type | default .name | default "Link" }}</a>{{ end }}
             {{ end }}
             <a href="{{ .RelPermalink }}">Cite</a>
           </span>

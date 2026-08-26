@@ -102,9 +102,10 @@
   </div>
 </div>
 
-{{/* Publications only. News, funding and thesis announcements carry their own
-     tags and are intentionally left off the person page. */}}
-{{ $pubs := where .Pages "Params.tags" "intersect" (slice "Publication") }}
+{{/* Publications only — identified by declaring a CSL publication_type, which
+     is intrinsic to a publication and is what the BibTeX importer emits.
+     News, funding and thesis announcements have none and are left off. */}}
+{{ $pubs := where .Pages "Params.publication_types" "!=" nil }}
 {{ $pubs = sort $pubs "Date" "desc" }}
 
 <div class="bf-sec bf-sec--tint">
@@ -136,7 +137,10 @@
               {{ with .Params.publication }}<p class="ve">{{ . | $.Page.RenderString }}</p>{{ end }}
             </div>
             <span class="lk">
-              {{ range .Params.links }}{{ if .url }}<a href="{{ .url }}">{{ .type }}</a>{{ end }}{{ end }}
+              {{/* Hand-written pages label a link with `type:`, the BibTeX importer
+                   with `name:`. Without the fallback an imported link renders as an
+                   empty anchor — a small blank box next to Cite. */}}
+              {{ range .Params.links }}{{ if .url }}<a href="{{ .url }}">{{ .type | default .name | default "Link" }}</a>{{ end }}{{ end }}
               <a href="{{ .RelPermalink }}">Cite</a>
             </span>
           </li>
