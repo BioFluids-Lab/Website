@@ -15,7 +15,11 @@ affiliations:
 interests:
   - Biomedical Device Design & Testing
 
-graduation_year: 2023
+# Contact details are rendered as plain, selectable text on the person page —
+# deliberately NOT as mailto:/tel: links, so a reader can read and copy them
+# without an email client or dialler opening. Replace the TODO tokens.
+email: "TODO@mail.ntua.gr"
+phone: "+30 210 772 TODO"
 
 links:
   - icon: hero/globe-alt
@@ -24,6 +28,8 @@ links:
   - icon: brands/linkedin
     url: https://www.linkedin.com/in/TODO
     label: LinkedIn
+
+graduation_year: 2023
 
 user_groups:
   - Alumni

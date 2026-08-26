@@ -59,16 +59,38 @@
           <span class="bf-tags bf-person__tags">{{ range . }}<span>{{ . }}</span>{{ end }}</span>
         {{ end }}
 
+        {{/* Contact is read straight from data/authors/<slug>.yaml rather than
+             from the profile dict, which carries no email or phone field. Both
+             are printed as plain selectable text, NOT as mailto:/tel: links —
+             a reader should be able to see and copy an address without an
+             email client or dialler taking over. */}}
+        {{ $raw := index hugo.Data.authors $slug }}
+        {{ if or $raw.email $raw.phone }}
+          <dl class="bf-person__contact">
+            {{ with $raw.email }}
+              <dt>E-mail</dt><dd><span class="bf-selectable">{{ . }}</span></dd>
+            {{ end }}
+            {{ with $raw.phone }}
+              <dt>Telephone</dt><dd><span class="bf-selectable">{{ . }}</span></dd>
+            {{ end }}
+          </dl>
+        {{ end }}
+
         {{ with $profile.links }}
           <div class="bf-person__links">
             {{ range . }}
               {{ $url := .url | default .link }}
               {{ if $url }}
                 {{ $label := .label | default "Link" }}
+                {{ $icon := .icon | default "hero/link" }}
                 {{ $ext := in (slice "http" "https") (urls.Parse $url).Scheme }}
-                <a href="{{ $url | safeURL }}" aria-label="{{ $label }}" title="{{ $label }}"
+                {{/* data-icon carries the pack/name so the brand colours in
+                     custom.css can key off it. aria-label stays the human
+                     label, which is what a screen reader should announce. */}}
+                <a href="{{ $url | safeURL }}" data-icon="{{ $icon }}"
+                   aria-label="{{ $label }}" title="{{ $label }}"
                    {{ if $ext }}target="_blank" rel="noopener"{{ end }}>
-                  {{ partial "functions/get_icon" (dict "name" (.icon | default "hero/link")
+                  {{ partial "functions/get_icon" (dict "name" $icon
                                                         "attributes" "class=\"bf-ico\"") }}
                 </a>
               {{ end }}

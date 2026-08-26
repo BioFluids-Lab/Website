@@ -27,7 +27,7 @@ sections:
     design:
       show_role: true
       show_organizations: false
-      show_interests: true
+      show_interests: false
       max_interests: 3
       align: center
       max_columns: 4

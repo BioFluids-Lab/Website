@@ -791,6 +791,102 @@ section[class*="blox-bf-"] {
   margin: 0;
 }
 
+/* ── Contact block ──────────────────────────────────────── */
+
+/* Address and number are printed, not linked, so they are read and copied in
+   place rather than handed to whatever mail client the browser happens to
+   own. user-select is forced on in case a parent ever turns it off. */
+
+.bf-person__contact {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 18px;
+  margin: 0 0 20px;
+  align-items: baseline;
+}
+.bf-person__contact dt {
+  font-family: var(--bf-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--bf-faint);
+  margin: 0;
+  white-space: nowrap;
+}
+.bf-person__contact dd {
+  margin: 0;
+  font-size: 15px;
+  color: var(--bf-text);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.bf-selectable {
+  user-select: all;
+  -webkit-user-select: all;
+}
+
+/* ── Brand colours for profile icons ───────────────────────────── */
+
+/* Every icon body from the hero, brands and academicons packs paints with
+   currentColor — hero through stroke, the other two through fill — so setting
+   `color` on the anchor is enough for all three.
+
+   Two selectors per service: the stock team-showcase block on /people/ writes
+   the icon name into aria-label, while our own person page writes it into
+   data-icon and keeps aria-label for the human label. */
+
+.bf-brandcolor,
+[data-icon="brands/linkedin"],
+[aria-label="brands/linkedin"] { --bf-brand: #0a66c2; }
+[data-icon="academicons/orcid"],
+[aria-label="academicons/orcid"] { --bf-brand: #a6ce39; }
+[data-icon="academicons/google-scholar"],
+[aria-label="academicons/google-scholar"] { --bf-brand: #4285f4; }
+[data-icon="academicons/scopus"],
+[aria-label="academicons/scopus"] { --bf-brand: #e9711c; }
+[data-icon="academicons/researchgate"],
+[aria-label="academicons/researchgate"] { --bf-brand: #00ccbb; }
+[data-icon="brands/github"],
+[aria-label="brands/github"] { --bf-brand: #24292f; }
+[data-icon="hero/globe-alt"],
+[aria-label="hero/globe-alt"] { --bf-brand: var(--bf-petrol); }
+[data-icon="hero/envelope"],
+[aria-label="hero/envelope"],
+[data-icon="hero/phone"],
+[aria-label="hero/phone"] { --bf-brand: var(--bf-petrol); }
+
+/* GitHub's near-black and the petrol tokens disappear against the dark
+   ground, so they lift; the saturated brand hues stay as they are. */
+.dark [data-icon="brands/github"],
+.dark [aria-label="brands/github"] { --bf-brand: #c9d1d9; }
+.dark [data-icon="hero/globe-alt"],
+.dark [aria-label="hero/globe-alt"],
+.dark [data-icon="hero/envelope"],
+.dark [aria-label="hero/envelope"],
+.dark [data-icon="hero/phone"],
+.dark [aria-label="hero/phone"] { --bf-brand: var(--bf-teal); }
+
+/* Person page: coloured glyph, and the frame picks the colour up on hover. */
+.bf-person__links a[data-icon] { color: var(--bf-brand, var(--bf-dim)); }
+.bf-person__links a[data-icon]:hover {
+  border-color: var(--bf-brand, var(--bf-rust));
+  color: var(--bf-brand, var(--bf-rust));
+}
+
+/* People list: team-showcase paints its own greys through Tailwind utility
+   classes on the anchor, so the colour has to win over them. Scoping this to
+   the block's wrapper section is not possible — parse_block_v3 emits the same
+   `blox-_` class for every block rather than one named after the block — so
+   the hook is the aria-label itself. Matching on a bare `/` is not safe — a
+   person whose display name contains a slash would match too — so the
+   selectors anchor on the three pack prefixes instead. */
+a[data-icon],
+a[aria-label^="hero/"],
+a[aria-label^="brands/"],
+a[aria-label^="academicons/"] {
+  color: var(--bf-brand, currentColor) !important;
+}
+
 /* ── Equipment specs ───────────────────────────────────────────────────── */
 
 .bf-kit {
