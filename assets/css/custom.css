@@ -681,6 +681,116 @@ section[class*="blox-bf-"] {
   color: var(--bf-rust);
 }
 
+/* ── Person page ───────────────────────────────────────────── */
+
+/* /authors/<slug>/. The portrait reuses the plate frame the rest of the site
+   uses for imagery, squared rather than 4:3, so a roster of uneven photographs
+   still reads as one set. */
+
+.bf-person__top {
+  display: grid;
+  grid-template-columns: minmax(0, 250px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 52px);
+  align-items: start;
+}
+@media (max-width: 720px) {
+  .bf-person__top {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .bf-person__plate {
+    max-width: 200px;
+  }
+}
+.bf-person__plate .bf-plate__frame {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bf-person__initial {
+  font-family: var(--bf-sans);
+  font-size: 76px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: rgba(220, 229, 226, 0.34);
+  line-height: 1;
+}
+.bf-person .bf-phead h1,
+.bf-person h1 {
+  margin-bottom: 10px;
+  max-width: 22ch;
+}
+.bf-person__role {
+  font-family: var(--bf-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bf-rust);
+  margin: 0 0 10px;
+}
+.bf-person__aff {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--bf-dim);
+  margin: 0 0 18px;
+  max-width: 52ch;
+}
+.bf-person__aff a {
+  color: var(--bf-dim);
+  text-decoration: none;
+  box-shadow: inset 0 -1px 0 var(--bf-rule-strong);
+}
+.bf-person__aff a:hover {
+  color: var(--bf-rust);
+  box-shadow: inset 0 -1px 0 var(--bf-rust);
+}
+.bf-person .bf-plede {
+  margin: 0 0 18px;
+}
+.bf-person__tags {
+  margin-bottom: 18px;
+}
+.bf-person__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--bf-rule);
+  max-width: 52ch;
+}
+.bf-person__links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--bf-rule);
+  color: var(--bf-dim);
+  transition: 0.16s;
+}
+.bf-person__links a:hover {
+  border-color: var(--bf-rust);
+  color: var(--bf-rust);
+}
+/* get_icon injects this class on the <svg>; currentColor lets the hover above
+   drive both the border and the glyph. */
+.bf-person__links .bf-ico {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+.bf-person__links .bf-ico[stroke],
+.bf-person__links svg[fill="none"] .bf-ico {
+  fill: none;
+}
+.bf-person__none {
+  font-family: var(--bf-serif);
+  font-style: italic;
+  color: var(--bf-faint);
+  margin: 0;
+}
+
 /* ── Equipment specs ───────────────────────────────────────────────────── */
 
 .bf-kit {

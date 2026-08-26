@@ -1,0 +1,129 @@
+{{/* Biofluids: person page.
+
+     Overrides the blox authors/term.html. The stock layout renders every page
+     tagged with this person as a full card — cover image, tag chip, read time,
+     byline — which mixes news items and funding announcements in with papers
+     and buries the one thing a visitor came for. This lists publications only,
+     in the same bibliography style as /research/publications/.
+
+     Deliberately depends on one module function (get_author_profile) and
+     nothing else, so a module bump has a small surface to break. */}}
+
+{{ define "main" }}
+
+{{ $slug := .Data.Term | urlize }}
+{{ $profile := partial "functions/get_author_profile" (dict "slug" $slug) }}
+{{ $avatar := $profile.avatar }}
+
+<div class="bf-sec bf-phead bf-person">
+  <div class="bf-wrap">
+    <p class="bf-crumb"><a href="{{ "/people/" | relLangURL }}">People</a></p>
+
+    <div class="bf-person__top">
+      <figure class="bf-plate bf-person__plate">
+        <div class="bf-plate__frame">
+          {{ if $avatar }}
+            {{ $img := $avatar.Fit "640x640 Center q90" }}
+            <img src="{{ $img.RelPermalink }}" alt="{{ $profile.title }}"
+                 width="{{ $img.Width }}" height="{{ $img.Height }}" loading="lazy" />
+          {{ else }}
+            {{/* No portrait supplied: the plate keeps its frame and shows the
+                 initial, so a roster with partial photography stays even. */}}
+            <span class="bf-person__initial" aria-hidden="true">
+              {{ $n := $profile.name_given | default $profile.title }}
+              {{ if gt (len $n) 0 }}{{ upper (substr $n 0 1) }}{{ end }}
+            </span>
+          {{ end }}
+        </div>
+        {{/* No figcaption: the role already sits directly beside the plate as
+             the eyebrow under the name, and repeating it reads as an error. */}}
+      </figure>
+
+      <div class="bf-person__id">
+        <h1>{{ $profile.title }}</h1>
+
+        {{ with $profile.role }}<p class="bf-person__role">{{ . | markdownify | emojify }}</p>{{ end }}
+
+        {{ with $profile.affiliations }}
+          <p class="bf-person__aff">
+            {{- range $i, $org := . -}}
+              {{- if gt $i 0 }} · {{ end -}}
+              {{- if $org.url }}<a href="{{ $org.url }}">{{ $org.name }}</a>{{ else }}{{ $org.name }}{{ end -}}
+            {{- end -}}
+          </p>
+        {{ end }}
+
+        {{ with $profile.bio }}<div class="bf-plede">{{ . | markdownify | emojify }}</div>{{ end }}
+
+        {{ with $profile.interests }}
+          <span class="bf-tags bf-person__tags">{{ range . }}<span>{{ . }}</span>{{ end }}</span>
+        {{ end }}
+
+        {{ with $profile.links }}
+          <div class="bf-person__links">
+            {{ range . }}
+              {{ $url := .url | default .link }}
+              {{ if $url }}
+                {{ $label := .label | default "Link" }}
+                {{ $ext := in (slice "http" "https") (urls.Parse $url).Scheme }}
+                <a href="{{ $url | safeURL }}" aria-label="{{ $label }}" title="{{ $label }}"
+                   {{ if $ext }}target="_blank" rel="noopener"{{ end }}>
+                  {{ partial "functions/get_icon" (dict "name" (.icon | default "hero/link")
+                                                        "attributes" "class=\"bf-ico\"") }}
+                </a>
+              {{ end }}
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/* Publications only. News, funding and thesis announcements carry their own
+     tags and are intentionally left off the person page. */}}
+{{ $pubs := where .Pages "Params.tags" "intersect" (slice "Publication") }}
+{{ $pubs = sort $pubs "Date" "desc" }}
+
+<div class="bf-sec bf-sec--tint">
+  <div class="bf-wrap">
+    <h2 class="bf-h2">Publications</h2>
+
+    {{ if $pubs }}
+      <ol class="bf-bib">
+        {{ range $pubs }}
+          <li>
+            <span class="yr">{{ .Date.Format "2006" }}</span>
+            <div>
+              <p class="ti"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+              {{ with .Params.authors }}
+                {{/* Lab members are emphasised, external co-authors are not —
+                     has_data is true only for slugs with a data/authors profile. */}}
+                <p class="au">
+                  {{- range $i, $a := . -}}
+                    {{- if $i }}, {{ end -}}
+                    {{- $pr := partial "functions/get_author_profile" (printf "%v" $a) -}}
+                    {{- if $pr.has_data -}}
+                      <em><a href="{{ printf "/authors/%s/" $pr.slug | relLangURL }}">{{ $pr.title }}</a></em>
+                    {{- else -}}
+                      {{ $pr.title }}
+                    {{- end -}}
+                  {{- end -}}
+                </p>
+              {{ end }}
+              {{ with .Params.publication }}<p class="ve">{{ . | $.Page.RenderString }}</p>{{ end }}
+            </div>
+            <span class="lk">
+              {{ range .Params.links }}{{ if .url }}<a href="{{ .url }}">{{ .type }}</a>{{ end }}{{ end }}
+              <a href="{{ .RelPermalink }}">Cite</a>
+            </span>
+          </li>
+        {{ end }}
+      </ol>
+    {{ else }}
+      <p class="bf-person__none">No publications are listed for this person yet.</p>
+    {{ end }}
+  </div>
+</div>
+
+{{ end }}
