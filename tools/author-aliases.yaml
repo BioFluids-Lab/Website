@@ -1,0 +1,68 @@
+# Author name normalisation for BibTeX imports
+# ----------------------------------------------------------------------------
+# A Zotero export spells the same person several ways ("Manopoulos, C." in one
+# entry, "Manopoulos, Christos" in another). Each spelling becomes a separate
+# author page, so a person's publication list silently splits across them.
+#
+# Each block below is one person: `canonical` is the single name every variant
+# is rewritten to, and `variants` are the spellings found in the .bib.
+#
+# Canonical names are first + last only — middle names and middle initials are
+# dropped, so "Kadoglou, Nikolaos P. E." becomes "Nikolaos Kadoglou".
+#
+# The canonical name decides the URL: "Christos Manopoulos" -> urlize ->
+# /authors/christos-manopoulos/. For anyone who has a profile in
+# data/authors/, the canonical name MUST urlize to that file's slug, or the
+# papers will not attach to their profile.
+#
+# CHECK THIS FILE before it is applied. Grouping was done on surname alone, so
+# two different people sharing a surname would be merged incorrectly.
+
+people:
+  # --- has a profile in data/authors/ -------------------------------------
+  - canonical: Christos Manopoulos      # -> christos-manopoulos (profile exists)
+    variants: ["Manopoulos, C.", "Manopoulos, Christos", "Manopoulos, C.G.", "Manopoulos, Christos G."]
+
+  # --- no profile yet; canonical name chosen as the fullest spelling -------
+  - canonical: Sokrates Tsangaris
+    variants: ["Tsangaris, S.", "Tsangaris, S.G.", "Tsangaris, Sokrates", "Tsangaris, Sokrates G."]
+
+  - canonical: Dimitrios Mathioulakis
+    variants: ["Mathioulakis, Dimitrios", "Mathioulakis, D.", "Mathioulakis, Demetri S."]
+
+  - canonical: Nikolaos Kadoglou
+    variants: ["Kadoglou, Nikolaos P. E.", "Kadoglou, Nikolaos P.E."]
+
+  - canonical: Konstantinos Moulakakis
+    variants: ["Moulakakis, Konstantinos G.", "Moulakakis, K.G."]
+
+  - canonical: Ignatios Ikonomidis
+    variants: ["Ikonomidis, Ignatios", "Ikonomidis, I."]
+
+  - canonical: John Kakisis
+    variants: ["Kakisis, John D.", "Kakisis, J."]
+
+  - canonical: Ilias Kouerinis
+    variants: ["Kouerinis, Ilias", "Kouerinis, I.A."]
+
+  - canonical: Christos Liapis
+    variants: ["Liapis, Christos D", "Liapis, Christos D."]
+
+  - canonical: Achilleas Tsoukalis
+    variants: ["Tsoukalis, Achilleas", "Tsoukalis, A."]
+
+  - canonical: Nikolaos Rogkas
+    variants: ["Rogkas, N.", "Rogkas, Nikolaos"]
+
+  - canonical: Vasilios Spitas
+    variants: ["Spitas, V.", "Spitas, Vasilios"]
+
+  - canonical: Georgios Vasileiou
+    variants: ["Vasileiou, G.", "Vasileiou, Georgios"]
+
+# Imported subject keywords are discarded rather than becoming site tags:
+# 44 of them, nearly all appearing once, with case-duplicates ("Arterial
+# stiffness" / "arterial stiffness"), plus Zotero's own {jou-international}
+# collection marker. Tag individual papers to a research area by hand if you
+# want per-area lists.
+drop_imported_tags: true
