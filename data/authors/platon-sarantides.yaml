@@ -1,19 +1,23 @@
 schema: hugoblox/author/v1
-slug: postdoc-1
+slug: platon-sarantides
 name:
-  display: "[Postdoctoral Researcher Name]"
-  given: "[Given Name]"
-  family: "[Family Name]"
-role: Postdoctoral Researcher
+  given: Platon
+  family: Sarantides
+  display: Platon Sarantides
+role: PhD Candidate
 bio: |
-  Placeholder bio — replace with this researcher's real biography and research focus.
+  TODO — replace with Platon Sarantides's own biography and thesis topic.
+  Nothing here was written by the lab yet.
 
 affiliations:
   - name: School of Mechanical Engineering, National Technical University of Athens
     url: https://www.mech.ntua.gr/
 
+# TODO — confirm. These were read off the publication record, not supplied.
 interests:
-  - Microfluidics & Lab-on-a-Chip
+  - Abdominal Aortic Aneurysms
+  - Computational Structural Analysis
+  - Medical Image Segmentation
 
 # Contact details are rendered as plain, selectable text on the person page —
 # deliberately NOT as mailto:/tel: links, so a reader can read and copy them
@@ -25,12 +29,11 @@ links:
   - icon: academicons/orcid
     url: https://orcid.org/TODO
     label: ORCID
-  - icon: academicons/google-scholar
-    url: https://scholar.google.com/citations?user=TODO
-    label: Google Scholar
   - icon: brands/linkedin
     url: https://www.linkedin.com/in/TODO
     label: LinkedIn
 
+weight: 1
+
 user_groups:
-  - Postdoctoral Researchers
+  - PhD Students

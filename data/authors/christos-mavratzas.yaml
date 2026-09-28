@@ -1,19 +1,22 @@
 schema: hugoblox/author/v1
-slug: phd-2
+slug: christos-mavratzas
 name:
-  display: "[PhD Student Name]"
-  given: "[Given Name]"
-  family: "[Family Name]"
+  given: Christos
+  family: Mavratzas
+  display: Christos Mavratzas
 role: PhD Candidate
 bio: |
-  Placeholder bio — replace with this student's real biography and thesis topic.
+  TODO — replace with Christos Mavratzas's own biography and thesis topic.
+  Nothing here was written by the lab yet.
 
 affiliations:
   - name: School of Mechanical Engineering, National Technical University of Athens
     url: https://www.mech.ntua.gr/
 
+# TODO — confirm. These were read off the publication record, not supplied.
 interests:
-  - Respiratory Flows
+  - Aortic Wall Mechanics
+  - Patient-Specific Geometry Reconstruction
 
 # Contact details are rendered as plain, selectable text on the person page —
 # deliberately NOT as mailto:/tel: links, so a reader can read and copy them
@@ -29,8 +32,7 @@ links:
     url: https://www.linkedin.com/in/TODO
     label: LinkedIn
 
-# Sorts after the named students, being a starter placeholder.
-weight: 91
+weight: 5
 
 user_groups:
   - PhD Students

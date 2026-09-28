@@ -1,0 +1,45 @@
+schema: hugoblox/author/v1
+slug: anastasios-raptis
+name:
+  given: Anastasios
+  family: Raptis
+  display: Anastasios Raptis
+postnominals:
+  - PhD
+# TODO — replace with the actual job title.
+role: Laboratory Teaching Staff (ΕΔΙΠ)
+bio: |
+  TODO — replace with Dr Raptis's own biography, research focus and
+  background. Nothing here was written by the lab yet.
+
+affiliations:
+  - name: School of Mechanical Engineering, National Technical University of Athens
+    url: https://www.mech.ntua.gr/
+
+# TODO — confirm. These were read off the publication record, not supplied.
+interests:
+  - Haemodynamics
+  - Computational Fluid Dynamics
+  - Medical Image Analysis
+
+# Contact details are rendered as plain, selectable text on the person page —
+# deliberately NOT as mailto:/tel: links, so a reader can read and copy them
+# without an email client or dialler opening. Replace the TODO tokens.
+email: "raptistasos@mail.ntua.gr"
+phone: "+30 210 772 1733"
+
+links:
+  - icon: academicons/orcid
+    url: https://orcid.org/0000-0001-8203-1203
+    label: ORCID
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/citations?user=6nYcStwAAAAJ&hl=en
+    label: Google Scholar
+  - icon: academicons/scopus
+    url: https://www.scopus.com/authid/detail.uri?authorId=56385260300
+    label: Scopus
+
+weight: 1
+
+user_groups:
+  - Staff

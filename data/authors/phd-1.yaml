@@ -29,5 +29,8 @@ links:
     url: https://www.linkedin.com/in/TODO
     label: LinkedIn
 
+# Sorts after the named students, being a starter placeholder.
+weight: 90
+
 user_groups:
   - PhD Students

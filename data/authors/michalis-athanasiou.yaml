@@ -1,19 +1,22 @@
 schema: hugoblox/author/v1
-slug: phd-2
+slug: michalis-athanasiou
 name:
-  display: "[PhD Student Name]"
-  given: "[Given Name]"
-  family: "[Family Name]"
+  given: Michalis
+  family: Athanasiou
+  display: Michalis Athanasiou
 role: PhD Candidate
 bio: |
-  Placeholder bio — replace with this student's real biography and thesis topic.
+  TODO — replace with Michalis Athanasiou's own biography and thesis topic.
+  Nothing here was written by the lab yet.
 
 affiliations:
   - name: School of Mechanical Engineering, National Technical University of Athens
     url: https://www.mech.ntua.gr/
 
+# TODO — no publications in publications.bib to read these off, and the lab
+# has not supplied them.
 interests:
-  - Respiratory Flows
+  - TODO
 
 # Contact details are rendered as plain, selectable text on the person page —
 # deliberately NOT as mailto:/tel: links, so a reader can read and copy them
@@ -29,8 +32,7 @@ links:
     url: https://www.linkedin.com/in/TODO
     label: LinkedIn
 
-# Sorts after the named students, being a starter placeholder.
-weight: 91
+weight: 2
 
 user_groups:
   - PhD Students

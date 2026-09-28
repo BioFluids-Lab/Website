@@ -91,11 +91,13 @@ sections:
       title: The people running the rigs
       subtitle: ""
       text: >-
-        The professors, a postdoctoral cohort, and the doctoral and diploma
+        The professors and research staff, alongside the doctoral and diploma
         students who do most of the measuring.
       user_groups:
+        # Must name groups that data/authors/ actually uses. A group with no
+        # members renders nothing and the block silently comes up short.
         - Professors
-        - Postdoctoral Researchers
+        - Staff
       cta:
         text: Meet the full team
         url: /people/

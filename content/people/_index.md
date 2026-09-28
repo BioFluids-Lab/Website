@@ -14,9 +14,14 @@ sections:
   - block: team-showcase
     content:
       user_groups:
-        - Professors
-        - Postdoctoral Researchers
-        - PhD Students
+        # Sorted by the `weight` in each data/authors/*.yaml, not by surname,
+        # so Christos Manopoulos leads regardless of who is added later.
+        - name: Professors
+          sort_by: weight
+        - name: Staff
+          sort_by: weight
+        - name: PhD Students
+          sort_by: weight
         - MSc / Undergraduate Students
         - name: Alumni
           sort_by: graduation_year

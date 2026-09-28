@@ -1,24 +1,27 @@
 schema: hugoblox/author/v1
-slug: christos-manopoulos
+slug: sokrates-tsangaris
 name:
-  given: Christos
-  family: Manopoulos
-  display: Christos Manopoulos
+  given: Sokrates
+  family: Tsangaris
+  display: Sokrates Tsangaris
 postnominals:
   - PhD
+# TODO — confirm the current title. He appears on 118 papers dated 1979 onward
+# and founded the laboratory, so "Professor Emeritus" may be the correct form.
 role: Professor
 bio: |
-  TODO — replace with Prof. Manopoulos's own biography, research focus and
+  TODO — replace with Prof. Tsangaris's own biography, research focus and
   background. Nothing here was written by the lab yet.
 
 affiliations:
   - name: School of Mechanical Engineering, National Technical University of Athens
     url: https://www.mech.ntua.gr/
 
+# TODO — confirm. These were read off the publication record, not supplied.
 interests:
   - Biofluid Mechanics
+  - Pulsatile and Unsteady Flow
   - Cardiovascular Flows
-  - Biomedical Technology
 
 # Contact details are rendered as plain, selectable text on the person page —
 # deliberately NOT as mailto:/tel: links, so a reader can read and copy them
@@ -36,13 +39,9 @@ links:
   - icon: academicons/scopus
     url: https://www.scopus.com/authid/detail.uri?authorId=TODO
     label: Scopus
-  - icon: brands/linkedin
-    url: https://www.linkedin.com/in/TODO
-    label: LinkedIn
 
-# Ordering within the group on /people/, which sorts Professors by weight
-# rather than by surname so this does not depend on alphabetical luck.
-weight: 1
+# Ordering within the group on /people/. Christos Manopoulos is 1.
+weight: 2
 
 user_groups:
   - Professors

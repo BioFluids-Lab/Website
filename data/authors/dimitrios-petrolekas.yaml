@@ -1,23 +1,22 @@
 schema: hugoblox/author/v1
-slug: professor-2
+slug: dimitrios-petrolekas
 name:
-  display: "[Professor Name]"
-  given: "[Given Name]"
-  family: "[Family Name]"
-postnominals:
-  - PhD
-role: Professor
+  given: Dimitrios
+  family: Petrolekas
+  display: Dimitrios Petrolekas
+role: PhD Candidate
 bio: |
-  Placeholder bio — replace with this professor's real biography and research
-  focus, or delete this file if the lab has only one professor.
+  TODO — replace with Dimitrios Petrolekas's own biography and thesis topic.
+  Nothing here was written by the lab yet.
 
 affiliations:
   - name: School of Mechanical Engineering, National Technical University of Athens
     url: https://www.mech.ntua.gr/
 
+# TODO — no publications in publications.bib to read these off, and the lab
+# has not supplied them.
 interests:
-  - Biomedical Technology
-  - Flow Diagnostics
+  - TODO
 
 # Contact details are rendered as plain, selectable text on the person page —
 # deliberately NOT as mailto:/tel: links, so a reader can read and copy them
@@ -29,9 +28,11 @@ links:
   - icon: academicons/orcid
     url: https://orcid.org/TODO
     label: ORCID
-  - icon: academicons/google-scholar
-    url: https://scholar.google.com/citations?user=TODO
-    label: Google Scholar
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/TODO
+    label: LinkedIn
+
+weight: 6
 
 user_groups:
-  - Professors
+  - PhD Students

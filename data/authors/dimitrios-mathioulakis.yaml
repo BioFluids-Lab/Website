@@ -1,24 +1,25 @@
 schema: hugoblox/author/v1
-slug: christos-manopoulos
+slug: dimitrios-mathioulakis
 name:
-  given: Christos
-  family: Manopoulos
-  display: Christos Manopoulos
+  given: Dimitrios
+  family: Mathioulakis
+  display: Dimitrios Mathioulakis
 postnominals:
   - PhD
 role: Professor
 bio: |
-  TODO — replace with Prof. Manopoulos's own biography, research focus and
+  TODO — replace with Prof. Mathioulakis's own biography, research focus and
   background. Nothing here was written by the lab yet.
 
 affiliations:
   - name: School of Mechanical Engineering, National Technical University of Athens
     url: https://www.mech.ntua.gr/
 
+# TODO — confirm. These were read off the publication record, not supplied.
 interests:
-  - Biofluid Mechanics
-  - Cardiovascular Flows
-  - Biomedical Technology
+  - Experimental Fluid Mechanics
+  - Unsteady Aerodynamics
+  - Flow Measurement
 
 # Contact details are rendered as plain, selectable text on the person page —
 # deliberately NOT as mailto:/tel: links, so a reader can read and copy them
@@ -36,13 +37,9 @@ links:
   - icon: academicons/scopus
     url: https://www.scopus.com/authid/detail.uri?authorId=TODO
     label: Scopus
-  - icon: brands/linkedin
-    url: https://www.linkedin.com/in/TODO
-    label: LinkedIn
 
-# Ordering within the group on /people/, which sorts Professors by weight
-# rather than by surname so this does not depend on alphabetical luck.
-weight: 1
+# Ordering within the group on /people/. Christos Manopoulos is 1.
+weight: 3
 
 user_groups:
   - Professors
