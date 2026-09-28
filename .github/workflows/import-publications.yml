@@ -6,7 +6,7 @@ permissions:
   contents: write
   pull-requests: write
 
-# Run workflow when a `.bib` file is added or updated in the `data/` folder
+# Run workflow when `publications.bib` in the repo root is added or updated
 on:
   push:
     branches: ['main']
@@ -52,7 +52,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install "academic${{ env.ACADEMIC_VERSION }}"
+          pip install "academic${{ env.ACADEMIC_VERSION }}" pyyaml
       - name: Validate publications.bib file
         if: ${{ hashFiles('publications.bib') != '' }}
         run: |
@@ -78,6 +78,19 @@ jobs:
             echo "⚠️ No publications were imported"
           fi
         continue-on-error: false
+
+      # `authors:` is a Hugo taxonomy, so "Tsangaris, S." and "Tsangaris, S.G."
+      # become two author pages and split one person's publication list in
+      # half. The importer cannot know they are the same person; the mapping
+      # lives in tools/author-aliases.yaml. This MUST run on every import,
+      # because the importer rewrites each page from the .bib and would
+      # otherwise undo the normalisation of every paper it re-emits.
+      - name: Normalise author names
+        if: ${{ hashFiles('publications.bib') != '' }}
+        run: |
+          python tools/normalize-authors.py content/research/publications/
+          echo "✅ Author names normalised"
+
       - name: Create Pull Request
         # Set ID for `Check outputs` stage
         id: cpr

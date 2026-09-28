@@ -1,68 +1,821 @@
 # Author name normalisation for BibTeX imports
-# ----------------------------------------------------------------------------
-# A Zotero export spells the same person several ways ("Manopoulos, C." in one
-# entry, "Manopoulos, Christos" in another). Each spelling becomes a separate
-# author page, so a person's publication list silently splits across them.
+# ============================================================================
+# One block per person. `canonical` is the single name published on the site,
+# and `variants` are the spellings that resolve to them.
 #
-# Each block below is one person: `canonical` is the single name every variant
-# is rewritten to, and `variants` are the spellings found in the .bib.
+# So this file can be read as the site reads: whatever `canonical` says is what
+# appears under each paper. The one exception is a person with a profile in
+# data/authors/, who is published under the profile's given + family name
+# instead. To show someone in full, give them a profile and re-run
 #
-# Canonical names are first + last only — middle names and middle initials are
-# dropped, so "Kadoglou, Nikolaos P. E." becomes "Nikolaos Kadoglou".
+#     python tools/normalize-authors.py content/research/publications/ --all
 #
-# The canonical name decides the URL: "Christos Manopoulos" -> urlize ->
-# /authors/christos-manopoulos/. For anyone who has a profile in
-# data/authors/, the canonical name MUST urlize to that file's slug, or the
-# papers will not attach to their profile.
+# Nothing here needs editing for that.
 #
-# CHECK THIS FILE before it is applied. Grouping was done on surname alone, so
-# two different people sharing a surname would be merged incorrectly.
+# Most variants are spellings taken from publications.bib. A few are not: a
+# full name the lab supplied where the .bib only ever gave initials, and forms
+# a person was published under before being renamed. Both are kept so those
+# spellings still resolve to the right person.
+#
+# Two things to leave alone. Every person needs at least one "Last, First"
+# variant: it is the only record of where the surname starts, and a profile is
+# attached by matching it. And the variants taken from the .bib must keep its
+# exact spelling, including its mistakes — they are what the importer's output
+# is matched against.
+#
+# The comment on each entry is how many papers in publications.bib carry that
+# person.
+#
+# Sections run in the order worth checking: the 4 with profiles, then the 45
+# whose several spellings were merged into one person — a wrong merge fuses two
+# people, and grouping started from the surname, so that is where to look —
+# then the 205 with a single spelling, where only the name itself can be wrong.
 
 people:
-  # --- has a profile in data/authors/ -------------------------------------
-  - canonical: Christos Manopoulos      # -> christos-manopoulos (profile exists)
-    variants: ["Manopoulos, C.", "Manopoulos, Christos", "Manopoulos, C.G.", "Manopoulos, Christos G."]
 
-  # --- no profile yet; canonical name chosen as the fullest spelling -------
-  - canonical: Sokrates Tsangaris
+  # --- with a profile — published in full from data/authors/ ---------------- (4)
+
+  # Not G. Tsangaris, a different person on the same 2007 paper.
+  - canonical: Sokrates Tsangaris           # 118 papers
     variants: ["Tsangaris, S.", "Tsangaris, S.G.", "Tsangaris, Sokrates", "Tsangaris, Sokrates G."]
 
-  - canonical: Dimitrios Mathioulakis
-    variants: ["Mathioulakis, Dimitrios", "Mathioulakis, D.", "Mathioulakis, Demetri S."]
+  - canonical: Dimitrios Mathioulakis       # 57 papers
+    variants: ["Mathioulakis, Dimitrios", "Mathioulakis, D.", "Mathioulakis, D.S.", "Mathioulakis, Demetri S."]
 
-  - canonical: Nikolaos Kadoglou
-    variants: ["Kadoglou, Nikolaos P. E.", "Kadoglou, Nikolaos P.E."]
+  - canonical: Christos Manopoulos          # 49 papers
+    variants: ["Manopoulos, C.", "Manopoulos, Christos", "Manopoulos, C.G.", "Manopoulos, Christos G.", "Manopoulos, Ch."]
 
-  - canonical: Konstantinos Moulakakis
-    variants: ["Moulakakis, Konstantinos G.", "Moulakakis, K.G."]
+  - canonical: Anastasios Raptis            # 35 papers
+    variants: ["Raptis, Anastasios", "Raptis, A.", "Raptis, A.A."]
 
-  - canonical: Ignatios Ikonomidis
+  # --- several .bib spellings merged into one person — check these ---------- (45)
+
+  - canonical: J.S. Anagnostopoulos         # 2 papers
+    variants: ["Anagnostopoulos, J.", "Anagnostopoulos, J.S.", "Anagnostopoulos, John"]
+
+  - canonical: D. Arampatzis                # 2 papers
+    variants: ["Arampatzis, Dimitris", "Arampatzis, D."]
+
+  - canonical: P. Asvestas                  # 2 papers
+    variants: ["Asvestas, Pantelis", "Asvestas, P."]
+
+  # Not N. Athanassiadis — different surname, different person.
+  - canonical: E.I. Athanasiadis            # 3 papers
+    variants: ["Athanasiadis, Emmanouil", "Athanasiadis, E.", "Athanasiadis, E.I."]
+
+  # Not E.I. Athanasiadis — different surname, different person.
+  - canonical: N. Athanassiadis             # 3 papers
+    variants: ["Athanassiadis, Nicolaos", "Athanassiadis, N."]
+
+  # "Christofidis, Ch." is a retired published form, kept so the pages that
+  # still carry it migrate.
+  - canonical: C.Ch. Christofidis           # 2 papers
+    variants: ["Christofidis, Ch.Ch.", "Christofidis, C.Ch.", "Christofidis, Ch.", "Christofidis, Charalambos"]
+
+  - canonical: E.I. Georgakarakos           # 10 papers
+    variants: ["Georgakarakos, Efstratios", "Georgakarakos, E.", "Georgakarakos, E.I."]
+
+  # Not C.G. Georgantopoulou. Different people.
+  - canonical: G.A. Georgantopoulos         # 2 papers
+    variants: ["Georgantopoulos, G.", "Georgantopoulos, G.A.", "Georgantopoulos, George"]
+
+  - canonical: C.G. Georgantopoulou         # 10 papers
+    variants: ["Georgantopoulou, C.", "Georgantopoulou, C.G.", "Georgantopoulou, Chr.G.", "Georgantopoulou, Chr.", "Georgantopoulou, Christine"]
+
+  - canonical: G.S. Georgiadis              # 6 papers
+    variants: ["Georgiadis, George", "Georgiadis, G.S."]
+
+  - canonical: A.D. Giannoukas              # 12 papers
+    variants: ["Giannoukas, Athanasios", "Giannoukas, A.", "Giannoukas, A.D."]
+
+  - canonical: D. Glotsos                   # 2 papers
+    variants: ["Glotsos, Dimitris", "Glotsos, D."]
+
+  - canonical: J.D. Kakisis                 # 20 papers
+    variants: ["Kakisis, John D.", "Kakisis, John", "Kakisis, J.", "Kakisis, J.D.", "Kakisis, I.", "Kakisis, Ioannis"]
+
+  - canonical: I.K. Kalatzis                # 3 papers
+    variants: ["Kalatzis, Ioannis", "Kalatzis, I.", "Kalatzis, I.K."]
+
+  - canonical: P.G. Kapiris                 # 4 papers
+    variants: ["Kapiris, P.", "Kapiris, P.G.", "Kapiris, Panagiotis"]
+
+  - canonical: G.M. Karageorgos             # 3 papers
+    variants: ["Karageorgos, G.", "Karageorgos, G.M.", "Karageorgos, Grigorios Marios"]
+
+  - canonical: S.C. Katsoudas               # 4 papers
+    variants: ["Katsoudas, Spyridon", "Katsoudas, S.C."]
+
+  - canonical: E. Kontopodis                # 2 papers
+    variants: ["Kontopodis, Eleftherios", "Kontopodis, E."]
+
+  - canonical: I.A. Kouerinis               # 5 papers
+    variants: ["Kouerinis, Ilias", "Kouerinis, I.", "Kouerinis, I.A."]
+
+  - canonical: K.C. Kyriakoudi              # 2 papers
+    variants: ["Kyriakoudi, Konstantina", "Kyriakoudi, K.C."]
+
+  - canonical: M.K. Lazarides               # 6 papers
+    variants: ["Lazarides, M.", "Lazarides, M.K.", "Lazarides, Miltos"]
+
+  - canonical: A.M. Lazaris                 # 2 papers
+    variants: ["Lazaris, A.", "Lazaris, A.M.", "Lazaris, Andreas"]
+
+  - canonical: J.P. Lekakis                 # 2 papers
+    variants: ["Lekakis, J.", "Lekakis, J.P.", "Lekakis, John"]
+
+  - canonical: M. Lodi Rizzini              # 2 papers
+    variants: ["Lodi Rizzini, Maurizio", "Rizzini, Maurizio Lodi"]
+
+  - canonical: T.A. Manos                   # 4 papers
+    variants: ["Manos, T.", "Manos, T.A.", "Manos, Themistoklis"]
+
+  - canonical: G.N. Marinakis               # 4 papers
+    variants: ["Marinakis, G.", "Marinakis, G.N.", "Marinakis, George"]
+
+  # The .bib misspells the surname four ways.
+  - canonical: M.I. Matsagkas               # 15 papers
+    variants: ["Matsagkas, Miltiadis", "Matsagkas, Militiadis", "Matsagkas, Mitiadis", "Matsagkas, Mitialdis", "Matsagkas, M.", "Matsagkas, M.I."]
+
+  - canonical: K.G. Moulakakis              # 12 papers
+    variants: ["Moulakakis, Konstantinos G.", "Moulakakis, Konstantinos", "Moulakakis, K.", "Moulakakis, K.G."]
+
+  - canonical: I.C. Moulinos                # 4 papers
+    variants: ["Moulinos, I.", "Moulinos, I.C.", "Moulinos, Ioannis"]
+
+  - canonical: J.N. Nanas                   # 2 papers
+    variants: ["Nanas, J.", "Nanas, J.N.", "Nanas, John"]
+
+  - canonical: K.S. Nikita                  # 3 papers
+    variants: ["Nikita, K.", "Nikita, K.S.", "Nikita, Konstantina"]
+
+  - canonical: T.I. Pappou                  # 7 papers
+    variants: ["Pappou, Th.", "Pappou, T.", "Pappou, T.I.", "Pappou, T.J.", "Pappou, Theodora"]
+
+  - canonical: P. Sarantides                # 2 papers
+    variants: ["Sarantides, Platon", "Sarantides, P."]
+
+  - canonical: S.G. Sassani                 # 4 papers
+    variants: ["Sassani, S.", "Sassani, S.G.", "Sassani, Sofia"]
+
+  # "Schims, H." is a typo: the same 1988 Vienna group.
+  - canonical: H. Schima                    # 6 papers
+    variants: ["Schima, H.", "Schims, H."]
+
+  - canonical: K.T. Spanos                  # 3 papers
+    variants: ["Spanos, Konstantinos", "Spanos, K.", "Spanos, K.T."]
+
+  - canonical: C. Stamatopoulos             # 4 papers
+    variants: ["Stamatopoulos, Ch.", "Stamatopoulos, C.", "Stamatopoulos, C.H.", "Stamatopoulos, Christos"]
+
+  - canonical: K.G. Stokos                  # 3 papers
+    variants: ["Stokos, K.", "Stokos, K.G.", "Stokos, Konstantinos"]
+
+  - canonical: I. Theocharakis              # 3 papers
+    variants: ["Theocharakis, Ioannis", "Theocharakis, I."]
+
+  # Canonical is a Latin I. The variants MUST keep their GREEK CAPITAL IOTA
+  # (U+0399) — they match the .bib, and "fixing" them to ASCII would match
+  # nothing.
+  - canonical: I. Theodorakopoulos          # 2 papers
+    variants: ["Theodorakopoulos, Ιlias", "Theodorakopoulos, Ι."]
+
+  - canonical: E.E. Tzirtzilakis            # 4 papers
+    variants: ["Tzirtzilakis, Efstratios", "Tzirtzilakis, E.E."]
+
+  - canonical: N.S. Vasilikos               # 5 papers
+    variants: ["Vasilikos, N.", "Vasilikos, N.S.", "Vasilikos, Nikolaos"]
+
+  - canonical: N.M. Vaxevanidis             # 3 papers
+    variants: ["Vaxevanidis, Nikolaos", "Vaxevanidis, N.M."]
+
+  - canonical: S.I. Vrahliotis              # 3 papers
+    variants: ["Vrahliotis, S.", "Vrahliotis, S.I.", "Vrahliotis, Socrates"]
+
+  - canonical: M.A. Xenos                   # 22 papers
+    variants: ["Xenos, Michalis", "Xenos, Michail", "Xenos, Michail A.", "Xenos, M.", "Xenos, M.A."]
+
+  # --- a single .bib spelling — nothing was merged -------------------------- (205)
+
+  - canonical: G. Agrogiannis               # 1 paper
+    variants: ["Agrogiannis, G."]
+
+  - canonical: M. Ahmed                     # 1 paper
+    variants: ["Ahmed, M."]
+
+  - canonical: H. Alajaimi                  # 1 paper
+    variants: ["Alajaimi, H."]
+
+  - canonical: J. Alexopoulos               # 1 paper
+    variants: ["Alexopoulos, J."]
+
+  - canonical: S.H. Almajed                 # 1 paper
+    variants: ["Almajed, S.H."]
+
+  - canonical: A. Anastasiadis              # 2 papers
+    variants: ["Anastasiadis, A."]
+
+  - canonical: A. Anastasiou                # 1 paper
+    variants: ["Anastasiou, A."]
+
+  - canonical: M.-A. Andri                  # 1 paper
+    variants: ["Andri, M.-A."]
+
+  - canonical: D.C. Angouras                # 1 paper
+    variants: ["Angouras, D.C."]
+
+  - canonical: V. Antonopoulos              # 1 paper
+    variants: ["Antonopoulos, V."]
+
+  - canonical: E.I. Apostolakis             # 1 paper
+    variants: ["Apostolakis, E.I."]
+
+  - canonical: M.E. Argiriou                # 1 paper
+    variants: ["Argiriou, M.E."]
+
+  - canonical: C. Argyriou                  # 2 papers
+    variants: ["Argyriou, C."]
+
+  - canonical: A. Argyris                   # 1 paper
+    variants: ["Argyris, A."]
+
+  - canonical: S. Astraka                   # 2 papers
+    variants: ["Astraka, S."]
+
+  - canonical: A.J. Bakas                   # 1 paper
+    variants: ["Bakas, A.J."]
+
+  - canonical: J.C. Barbenel                # 2 papers
+    variants: ["Barbenel, J.C."]
+
+  - canonical: P. Bardis                    # 1 paper
+    variants: ["Bardis, P."]
+
+  - canonical: E.K. Basdra                  # 1 paper
+    variants: ["Basdra, E.K."]
+
+  - canonical: K. Batzalexis                # 1 paper
+    variants: ["Batzalexis, Konstantinos"]
+
+  - canonical: H. Baumgartner               # 2 papers
+    variants: ["Baumgartner, H."]
+
+  - canonical: E. Beropoulis                # 1 paper
+    variants: ["Beropoulis, Efthymios"]
+
+  - canonical: T. Bisdas                    # 1 paper
+    variants: ["Bisdas, Theodosios"]
+
+  - canonical: D. Bluestein                 # 1 paper
+    variants: ["Bluestein, Danny"]
+
+  - canonical: K. Bolos                     # 1 paper
+    variants: ["Bolos, K."]
+
+  - canonical: C.T. Chrimatopoulos          # 1 paper
+    variants: ["Chrimatopoulos, C.T.", "Chrimatopoulos, Christoforos"]
+
+  - canonical: G.T. Chrimatopoulos          # 1 paper
+    variants: ["Chrimatopoulos, G.T.", "Chrimatopoulos, Grigorios"]
+
+  - canonical: A. Christafakis              # 1 paper
+    variants: ["Christafakis, A."]
+
+  - canonical: M.-S. Daraki                 # 1 paper
+    variants: ["Daraki, M.-S."]
+
+  - canonical: C.H. Davos                   # 3 papers
+    variants: ["Davos, C.H."]
+
+  - canonical: G. De Nisco                  # 1 paper
+    variants: ["De Nisco, Giuseppe"]
+
+  - canonical: P.G. Dedeilias               # 1 paper
+    variants: ["Dedeilias, P.G."]
+
+  - canonical: G.K. Despotis                # 3 papers
+    variants: ["Despotis, G.K."]
+
+  - canonical: M. Deutsch                   # 1 paper
+    variants: ["Deutsch, M."]
+
+  - canonical: P. Dik                       # 1 paper
+    variants: ["Dik, P."]
+
+  - canonical: S. Dimas                     # 1 paper
+    variants: ["Dimas, Stelios"]
+
+  - canonical: C.A. Dimitriou               # 1 paper
+    variants: ["Dimitriou, C.A."]
+
+  - canonical: A. Dounis                    # 1 paper
+    variants: ["Dounis, A."]
+
+  - canonical: M. Drandakis                 # 2 papers
+    variants: ["Drandakis, M."]
+
+  - canonical: D. Drikakis                  # 9 papers
+    variants: ["Drikakis, D."]
+
+  - canonical: G.A. Drosopoulos             # 1 paper
+    variants: ["Drosopoulos, G.A."]
+
+  - canonical: Y. Drossinos                 # 1 paper
+    variants: ["Drossinos, Y."]
+
+  - canonical: T. Economopoulos             # 1 paper
+    variants: ["Economopoulos, T."]
+
+  - canonical: K. Ellinas                   # 1 paper
+    variants: ["Ellinas, K."]
+
+  - canonical: R. Fasol                     # 1 paper
+    variants: ["Fasol, R."]
+
+  - canonical: L. Fazzini                   # 2 papers
+    variants: ["Fazzini, Laura"]
+
+  - canonical: A. Fidas                     # 1 paper
+    variants: ["Fidas, A."]
+
+  - canonical: A.C. Fisher                  # 1 paper
+    variants: ["Fisher, A.C."]
+
+  - canonical: D.I. Fotiadis                # 1 paper
+    variants: ["Fotiadis, D.I."]
+
+  - canonical: D. Gallo                     # 4 papers
+    variants: ["Gallo, Diego"]
+
+  - canonical: G. Geroulakos                # 1 paper
+    variants: ["Geroulakos, G."]
+
+  - canonical: G. Gheiseder                 # 1 paper
+    variants: ["Gheiseder, G."]
+
+  - canonical: A.T. Giagini                 # 4 papers
+    variants: ["Giagini, A.T."]
+
+  - canonical: E.J. Gialafos                # 1 paper
+    variants: ["Gialafos, E.J."]
+
+  - canonical: V. Gkanis                    # 1 paper
+    variants: ["Gkanis, V."]
+
+  - canonical: D. Gkiolas                   # 5 papers
+    variants: ["Gkiolas, D."]
+
+  - canonical: E. Gogolides                 # 1 paper
+    variants: ["Gogolides, E."]
+
+  - canonical: E. Gonidaki                  # 1 paper
+    variants: ["Gonidaki, E."]
+
+  - canonical: V.G. Gorgoulis               # 1 paper
+    variants: ["Gorgoulis, V.G."]
+
+  - canonical: P. Groscurth                 # 1 paper
+    variants: ["Groscurth, P."]
+
+  - canonical: C. Housiadas                 # 6 papers
+    variants: ["Housiadas, C."]
+
+  - canonical: I. Ikonomidis                # 1 paper
     variants: ["Ikonomidis, Ignatios", "Ikonomidis, I."]
 
-  - canonical: John Kakisis
-    variants: ["Kakisis, John D.", "Kakisis, J."]
+  - canonical: G. Ioannidis                 # 1 paper
+    variants: ["Ioannidis, G."]
 
-  - canonical: Ilias Kouerinis
-    variants: ["Kouerinis, Ilias", "Kouerinis, I.A."]
+  - canonical: M. Kadletz                   # 2 papers
+    variants: ["Kadletz, M."]
 
-  - canonical: Christos Liapis
+  - canonical: N.P.E. Kadoglou              # 1 paper
+    variants: ["Kadoglou, Nikolaos P. E.", "Kadoglou, Nikolaos P.E.", "Kadoglou, N.P.E."]
+
+  - canonical: I. Kakkos                    # 1 paper
+    variants: ["Kakkos, I."]
+
+  - canonical: Ch. Kaliakatsos              # 2 papers
+    variants: ["Kaliakatsos, Ch."]
+
+  - canonical: G. Kaltsas                   # 3 papers
+    variants: ["Kaltsas, G."]
+
+  - canonical: K.C. Kapoulas                # 1 paper
+    variants: ["Kapoulas, K.C."]
+
+  - canonical: E. Karadimitriou             # 1 paper
+    variants: ["Karadimitriou, E."]
+
+  - canonical: V.D. Karageorgou             # 1 paper
+    variants: ["Karageorgou, Vaia Despoina"]
+
+  - canonical: A. Karagiannis               # 1 paper
+    variants: ["Karagiannis, A."]
+
+  - canonical: I. Karathanasis              # 1 paper
+    variants: ["Karathanasis, I."]
+
+  - canonical: E. Karatzis                  # 1 paper
+    variants: ["Karatzis, E."]
+
+  - canonical: P.E. Karayannacos            # 2 papers
+    variants: ["Karayannacos, P.E."]
+
+  - canonical: A. Katsamouris               # 3 papers
+    variants: ["Katsamouris, A."]
+
+  - canonical: M.J. Kim                     # 1 paper
+    variants: ["Kim, M.J."]
+
+  - canonical: A. Kiourti                   # 1 paper
+    variants: ["Kiourti, A."]
+
+  - canonical: N. Kladovasilakis            # 2 papers
+    variants: ["Kladovasilakis, N."]
+
+  - canonical: G. Kobinia                   # 1 paper
+    variants: ["Kobinia, G."]
+
+  - canonical: C. Kolyva                    # 1 paper
+    variants: ["Kolyva, C."]
+
+  - canonical: D. Kondaxakis                # 6 papers
+    variants: ["Kondaxakis, D."]
+
+  - canonical: P. Korkidis                  # 1 paper
+    variants: ["Korkidis, P."]
+
+  - canonical: A. Kostis                    # 1 paper
+    variants: ["Kostis, A."]
+
+  - canonical: S. Kostopoulos               # 2 papers
+    variants: ["Kostopoulos, S."]
+
+  - canonical: G.J. Koullias                # 2 papers
+    variants: ["Koullias, G.J."]
+
+  - canonical: K. Kounanis                  # 1 paper
+    variants: ["Kounanis, K."]
+
+  - canonical: E. Koutoulakis               # 1 paper
+    variants: ["Koutoulakis, Emmanouil"]
+
+  - canonical: E.K. Koutsavdis              # 1 paper
+    variants: ["Koutsavdis, E.K."]
+
+  - canonical: A.G. Koutsiaris              # 1 paper
+    variants: ["Koutsiaris, A.G."]
+
+  - canonical: D. Koutsouris                # 1 paper
+    variants: ["Koutsouris, D."]
+
+  - canonical: G. Kouvelos                  # 6 papers
+    variants: ["Kouvelos, George"]
+
+  - canonical: L. Kozis                     # 1 paper
+    variants: ["Kozis, L."]
+
+  - canonical: W. Krishan                   # 2 papers
+    variants: ["Krishan, W."]
+
+  - canonical: E.P. Kritharis               # 6 papers
+    variants: ["Kritharis, E.P."]
+
+  - canonical: P. Krosl                     # 1 paper
+    variants: ["Krosl, P."]
+
+  - canonical: K. Kyparissis                # 1 paper
+    variants: ["Kyparissis, K."]
+
+  - canonical: M. Kyriakidis                # 1 paper
+    variants: ["Kyriakidis, M."]
+
+  - canonical: N. Labropoulos               # 2 papers
+    variants: ["Labropoulos, Nicos"]
+
+  - canonical: A. Lazopoulos                # 1 paper
+    variants: ["Lazopoulos, A."]
+
+  - canonical: E. Leiter                    # 4 papers
+    variants: ["Leiter, E."]
+
+  - canonical: X.M. Li                      # 1 paper
+    variants: ["Li, X.M."]
+
+  - canonical: C.D. Liapis                  # 0 papers
     variants: ["Liapis, Christos D", "Liapis, Christos D."]
 
-  - canonical: Achilleas Tsoukalis
-    variants: ["Tsoukalis, Achilleas", "Tsoukalis, A."]
+  - canonical: D. Liepsch                   # 1 paper
+    variants: ["Liepsch, D."]
 
-  - canonical: Nikolaos Rogkas
+  - canonical: P.D. Linardopoulos           # 2 papers
+    variants: ["Linardopoulos, P.D."]
+
+  - canonical: U. Losert                    # 1 paper
+    variants: ["Losert, U."]
+
+  - canonical: G.N. Lygidakis               # 1 paper
+    variants: ["Lygidakis, G.N."]
+
+  - canonical: E. Makris                    # 4 papers
+    variants: ["Makris, E."]
+
+  - canonical: S. Malatos                   # 4 papers
+    variants: ["Malatos, Stavros"]
+
+  - canonical: A. Manios                    # 1 paper
+    variants: ["Manios, A."]
+
+  - canonical: E. Markodimitrakis           # 1 paper
+    variants: ["Markodimitrakis, Emmanouil"]
+
+  - canonical: G.K. Matsopoulos             # 1 paper
+    variants: ["Matsopoulos, G.K."]
+
+  - canonical: G. Maurer                    # 2 papers
+    variants: ["Maurer, G."]
+
+  - canonical: C. Mavratzas                 # 2 papers
+    variants: ["Mavratzas, C."]
+
+  - canonical: C. Mavridis                  # 1 paper
+    variants: ["Mavridis, C."]
+
+  - canonical: D. Moertl                    # 1 paper
+    variants: ["Moertl, D."]
+
+  - canonical: D.T. Mook                    # 1 paper
+    variants: ["Mook, D.T."]
+
+  - canonical: U. Morbiducci                # 4 papers
+    variants: ["Morbiducci, Umberto"]
+
+  - canonical: D. Mougakou                  # 1 paper
+    variants: ["Mougakou, D."]
+
+  - canonical: S.D. Moulopoulos             # 1 paper
+    variants: ["Moulopoulos, S.D."]
+
+  - canonical: A.D. Mouratidou              # 1 paper
+    variants: ["Mouratidou, A.D."]
+
+  - canonical: F. Mouzakis                  # 1 paper
+    variants: ["Mouzakis, F."]
+
+  - canonical: S.N. Mylonas                 # 1 paper
+    variants: ["Mylonas, S.N."]
+
+  - canonical: M.R. Müller                  # 1 paper
+    variants: ["Müller, M.R."]
+
+  - canonical: P. Nana                      # 2 papers
+    variants: ["Nana, Petroula"]
+
+  - canonical: P. Neofytou                  # 9 papers
+    variants: ["Neofytou, P."]
+
+  - canonical: C. Nikas                     # 1 paper
+    variants: ["Nikas, C."]
+
+  - canonical: K. Nikolados                 # 1 paper
+    variants: ["Nikolados, K."]
+
+  - canonical: N.M. Nikolaidis              # 1 paper
+    variants: ["Nikolaidis, N.M."]
+
+  - canonical: I.K. Nikolos                 # 1 paper
+    variants: ["Nikolos, I.K."]
+
+  - canonical: K. Ninos                     # 1 paper
+    variants: ["Ninos, K."]
+
+  - canonical: P.G. Panagopoulos            # 2 papers
+    variants: ["Panagopoulos, P.G."]
+
+  - canonical: D.K. Pantelatos              # 2 papers
+    variants: ["Pantelatos, D.K."]
+
+  - canonical: S.A. Papadodima              # 1 paper
+    variants: ["Papadodima, S.A."]
+
+  - canonical: Y. Papaharilaou              # 2 papers
+    variants: ["Papaharilaou, Y."]
+
+  - canonical: T.G. Papaioannou             # 6 papers
+    variants: ["Papaioannou, T.G."]
+
+  - canonical: C. Papamichael               # 1 paper
+    variants: ["Papamichael, C."]
+
+  - canonical: D.E. Papantonis              # 1 paper
+    variants: ["Papantonis, D.E."]
+
+  - canonical: A.G. Papavassiliou           # 1 paper
+    variants: ["Papavassiliou, A.G."]
+
+  - canonical: G.P. Patsis                  # 1 paper
+    variants: ["Patsis, G.P."]
+
+  - canonical: M. Pelekis                   # 1 paper
+    variants: ["Pelekis, M."]
+
+  - canonical: A. Pentaris                  # 6 papers
+    variants: ["Pentaris, A."]
+
+  - canonical: V. Perivolioti               # 1 paper
+    variants: ["Perivolioti, Vasiliki"]
+
+  - canonical: M. Peroulis                  # 1 paper
+    variants: ["Peroulis, M."]
+
+  - canonical: K. Petrakopoulos             # 1 paper
+    variants: ["Petrakopoulos, K."]
+
+  - canonical: A. Petropoulos               # 2 papers
+    variants: ["Petropoulos, A."]
+
+  - canonical: M. Pilou                     # 3 papers
+    variants: ["Pilou, M."]
+
+  - canonical: C. Piperi                    # 1 paper
+    variants: ["Piperi, C."]
+
+  - canonical: C.F. Pitros                  # 1 paper
+    variants: ["Pitros, C.F."]
+
+  - canonical: C. Plavoukos                 # 1 paper
+    variants: ["Plavoukos, Christos"]
+
+  - canonical: G. Porenta                   # 2 papers
+    variants: ["Porenta, G."]
+
+  - canonical: D. Potamitis                 # 1 paper
+    variants: ["Potamitis, D."]
+
+  - canonical: P. Preiss                    # 1 paper
+    variants: ["Preiss, P."]
+
+  - canonical: P. Probst                    # 1 paper
+    variants: ["Probst, P."]
+
+  - canonical: A. Protogerou                # 1 paper
+    variants: ["Protogerou, A."]
+
+  - canonical: S. Qin                       # 1 paper
+    variants: ["Qin, S."]
+
+  - canonical: K.S. Rammos                  # 2 papers
+    variants: ["Rammos, K.S."]
+
+  - canonical: N. Rogkas                    # 4 papers
     variants: ["Rogkas, N.", "Rogkas, Nikolaos"]
 
-  - canonical: Vasilios Spitas
+  - canonical: P. Sarkiris                  # 1 paper
+    variants: ["Sarkiris, P."]
+
+  - canonical: G. Savva                     # 1 paper
+    variants: ["Savva, G."]
+
+  - canonical: P. Scherer                   # 1 paper
+    variants: ["Scherer, P."]
+
+  - canonical: D. Schinas                   # 1 paper
+    variants: ["Schinas, D."]
+
+  - canonical: C. Schlusche                 # 1 paper
+    variants: ["Schlusche, C."]
+
+  - canonical: N. Schoretsanitis            # 1 paper
+    variants: ["Schoretsanitis, Nikolaos"]
+
+  - canonical: K. Seferlis                  # 1 paper
+    variants: ["Seferlis, K."]
+
+  - canonical: F. Shan                      # 1 paper
+    variants: ["Shan, F."]
+
+  - canonical: F. Sigala                    # 1 paper
+    variants: ["Sigala, F."]
+
+  - canonical: A. Skouroliakou              # 1 paper
+    variants: ["Skouroliakou, A."]
+
+  - canonical: D.P. Sokolis                 # 12 papers
+    variants: ["Sokolis, D.P."]
+
+  - canonical: V. Spitas                    # 4 papers
     variants: ["Spitas, V.", "Spitas, Vasilios"]
 
-  - canonical: Georgios Vasileiou
+  - canonical: K.S. Stamatelopoulos         # 1 paper
+    variants: ["Stamatelopoulos, K.S.", "Stamatelopoulos, Kimon"]
+
+  - canonical: S.F. Stamatelopoulos         # 2 papers
+    variants: ["Stamatelopoulos, S.F.", "Stamatelopoulos, Stamatios"]
+
+  - canonical: G.E. Stavroulakis            # 2 papers
+    variants: ["Stavroulakis, G.E."]
+
+  - canonical: C.I. Stefanadis              # 1 paper
+    variants: ["Stefanadis, C.I."]
+
+  - canonical: S. Stelios                   # 1 paper
+    variants: ["Stelios, S."]
+
+  - canonical: N. Stergiopulos              # 7 papers
+    variants: ["Stergiopulos, N."]
+
+  - canonical: A.K. Stubos                  # 1 paper
+    variants: ["Stubos, A.K."]
+
+  - canonical: H. Sun                       # 1 paper
+    variants: ["Sun, H."]
+
+  - canonical: P. Tasso                     # 4 papers
+    variants: ["Tasso, Paola"]
+
+  - canonical: D.P. Telionis                # 6 papers
+    variants: ["Telionis, D.P."]
+
+  - canonical: I.T. Theodosopoulos          # 1 paper
+    variants: ["Theodosopoulos, I.T."]
+
+  - canonical: A. Theofani                  # 1 paper
+    variants: ["Theofani, A."]
+
+  - canonical: H. Thoma                     # 1 paper
+    variants: ["Thoma, H."]
+
+  - canonical: M.P. Thomadakis              # 1 paper
+    variants: ["Thomadakis, M.P."]
+
+  - canonical: S. Toumanidis                # 1 paper
+    variants: ["Toumanidis, S."]
+
+  - canonical: G. Tsangaris                 # 1 paper
+    variants: ["Tsangaris, G.", "Tsangaris, Grigorios"]
+
+  - canonical: P. Tsantrizos                # 2 papers
+    variants: ["Tsantrizos, P."]
+
+  - canonical: N.B. Tsilimingas             # 1 paper
+    variants: ["Tsilimingas, N.B."]
+
+  - canonical: A. Tsoukalis                 # 4 papers
+    variants: ["Tsoukalis, Achilleas", "Tsoukalis, A."]
+
+  - canonical: A. Tsoukas                   # 1 paper
+    variants: ["Tsoukas, A."]
+
+  - canonical: D.C. Tzotzolakis             # 1 paper
+    variants: ["Tzotzolakis, D.C."]
+
+  - canonical: T.P. Vagenas                 # 1 paper
+    variants: ["Vagenas, T.P."]
+
+  - canonical: C. Vakouftsis                # 1 paper
+    variants: ["Vakouftsis, C."]
+
+  - canonical: A. Varela                    # 1 paper
+    variants: ["Varela, A."]
+
+  - canonical: G. Vasileiou                 # 3 papers
     variants: ["Vasileiou, G.", "Vasileiou, Georgios"]
 
-# Imported subject keywords are discarded rather than becoming site tags:
-# 44 of them, nearly all appearing once, with case-duplicates ("Arterial
-# stiffness" / "arterial stiffness"), plus Zotero's own {jou-international}
-# collection marker. Tag individual papers to a research area by hand if you
-# want per-area lists.
+  - canonical: E. Ventouras                 # 1 paper
+    variants: ["Ventouras, E."]
+
+  - canonical: I. Vezakis                   # 1 paper
+    variants: ["Vezakis, I."]
+
+  - canonical: N.W. Vlachakis               # 6 papers
+    variants: ["Vlachakis, N.W."]
+
+  - canonical: E. Wolner                    # 2 papers
+    variants: ["Wolner, E."]
+
+  - canonical: A. Xenakis                   # 5 papers
+    variants: ["Xenakis, A."]
+
+  - canonical: D. Yiasemides                # 2 papers
+    variants: ["Yiasemides, D."]
+
+  - canonical: M. Yusuf                     # 1 paper
+    variants: ["Yusuf, M."]
+
+  - canonical: N. Zakopoulos                # 1 paper
+    variants: ["Zakopoulos, N."]
+
+  - canonical: P. Zilla                     # 2 papers
+    variants: ["Zilla, P."]
+
+  - canonical: J.A. Zissis                  # 1 paper
+    variants: ["Zissis, J.A."]
+
+  - canonical: G.C. Zografos                # 1 paper
+    variants: ["Zografos, G.C."]
+
+# Imported subject keywords are discarded rather than becoming site tags: they
+# are near-unique per paper, carry case-duplicates ("Arterial stiffness" /
+# "arterial stiffness") and Zotero's own {jou-international} collection marker.
 drop_imported_tags: true

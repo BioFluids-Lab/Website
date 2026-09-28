@@ -107,7 +107,52 @@ python tools/normalize-authors.py content/research/publications/
 
 `publications.bib` belongs at the **repo root** for `.github/workflows/import-publications.yml`
 to pick it up (that workflow imports to `content/research/publications/`, which
-was corrected from the starter's `content/publications/`).
+was corrected from the starter's `content/publications/`). The workflow now runs
+the normaliser itself, between the import and the PR — pushing a new `.bib` to
+`main` is enough; the two commands above are only for importing locally.
+
+**`academic import` skips a folder that already exists** unless you pass
+`--overwrite`. So a re-import only adds new papers; correcting an entry in the
+`.bib` will *not* update the page already built from it, in CI or locally.
+
+The normaliser defaults to the pages the importer *touched*, added or modified.
+It once matched only untracked (`??`) paths. That was survivable while the
+importer only ever adds folders, but it silently normalises nothing the moment
+anyone passes `--overwrite`, or re-runs it locally over committed pages.
+
+### How an author's name is written
+
+**`canonical` in `author-aliases.yaml` is the published name.** What the site
+shows is read straight out of that file, not derived. The one exception is a
+person with a `data/authors/<slug>.yaml`, who is published under the profile's
+given + family name instead — so a profile is the switch that shows someone in
+full. Add one and re-run **with `--all`** (their pages are already committed, so
+the default "only what the importer touched" filter would skip them).
+
+A profile attaches by matching surname plus first initial, so it finds whoever
+the `.bib` called that person. The surname for that comes from the `Last, First`
+variant, never from the canonical: `De Nisco, Giuseppe` has a two-word surname
+that no last-token rule would find. **Every person needs at least one
+`Last, First` variant**, and variants must keep the `.bib`'s exact spelling,
+mistakes included — they are what the importer's output is matched against.
+
+Editing a canonical migrates the pages published under the old one, as long as
+the old one is still a variant flip. When it is not — a rename to something the
+`.bib` never said, or a deleted profile stranding a full name — add the retired
+form to that person's `variants`. The normaliser prints every name it does not
+recognise at the end of a run, which is how you find one; that list is also the
+to-do list after an import brings in new co-authors.
+
+An `authors:` entry that is a profile *slug* rather than a name (the starter's
+example pages do this) is left untouched — HugoBlox resolves it itself.
+
+Two people can share a surname. `Chrimatopoulos G.T./C.T.` and
+`Stamatelopoulos S.F./K.S.` each appear on the *same paper*, as do
+`Tsangaris S./G.` — six such pairs were checked and deliberately left unmerged,
+each noted on its own entry in `author-aliases.yaml`. Two spellings of
+`Theodorakopoulos` carry a **Greek capital iota** (U+0399) where a Latin I
+belongs — the canonical is corrected, but the variants must keep the Greek
+character or they match nothing.
 
 ## Open decisions
 
