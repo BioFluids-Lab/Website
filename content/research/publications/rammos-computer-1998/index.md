@@ -1,0 +1,44 @@
+---
+title: A computer model for the prediction of left epicardial coronary blood flow
+  in normal, stenotic and bypassed coronary arteries, by single or sequential grafting
+authors:
+- K.S. Rammos
+- G.J. Koullias
+- T.I. Pappou
+- A.J. Bakas
+- P.G. Panagopoulos
+- Sokrates Tsangaris
+date: '1998-01-01'
+publishDate: '2026-08-30T08:44:56.619841Z'
+publication_types:
+- article-journal
+publication: '*Vascular*'
+hugoblox:
+  ids:
+    doi: 10.1016/s0967-2109(98)00088-x
+abstract: This article describes a computer model for calculating left epicardial
+  coronary blood pressure and flow waveforms of a right dominant coronary circulation.
+  Using the geometry of 16 vascular branches and employing the one-dimensional Navier—Stokes
+  equations the model allows for the prediction of blood pressure and flow patterns
+  in normal and stenosed vessels. This model was also used to predict the haemodynamic
+  changes observed after insertion of two single saphenous vein bypass grafts, as
+  compared with the corresponding changes after insertion of a sequential (snake-like)
+  saphenous graft. In normal vessels during systole and diastole, the pressure and
+  the flow waveforms obtained showed patterns that correlate very well with the findings
+  observed by other investigators using intracoronary flowmeter or Doppler velocimeter
+  techniques. In coronary artery disease (90% stenoses in LAD and diagonal branch
+  1), the authors' main contribution is the reconfirmation of a previously described
+  finding of systolic flow rises in stenotic segments. This finding seems to be an
+  important compensatory mechanism, in contrast to normal coronary vessels, which
+  maintain a mainly diastolic flow pattern. The introduction of single or sequential
+  bypass grafts leads to pressure and flow restoration after graft revascularization.
+  Besides this finding, the general concept of a diastolic flow restoration post-stenotically,
+  in the previously decreased and systolic augmented flow areas, is also observed.
+  The two revascularization methods were also compared with regard to their specific
+  advantages, disadvantages and indications and were also extensively compared with
+  several in vivo studies. © 1998, The International Society for Cardiovascular Surgery.
+  All rights reserved.
+links:
+- name: URL
+  url: https://doi.org/10.1016/s0967-2109(98)00088-x
+---
