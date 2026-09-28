@@ -85,6 +85,15 @@ Each of these cost real debugging time.
   some content names that slug in its front matter, so People cards linked to
   404s. `content/authors/<slug>/_index.md` stubs force them into existence; the
   profile data still lives in `data/authors/`.
+- **A `team-showcase` block naming a group nothing uses renders nothing**, with
+  no warning. `/people/` and the homepage each list `user_groups` by name; they
+  have to match the `user_groups` in `data/authors/*.yaml`. Removing
+  Postdoctoral Researchers from `/people/` left the homepage still asking for
+  it, quietly showing three cards in a four-column row.
+- **Profiles sort by `weight`, not surname.** Professors, Staff and PhD
+  Students all carry `sort_by: weight` so Manopoulos leads and the students
+  keep the order the lab gave. A new profile with no `weight` sorts to the
+  *top* of its group.
 - **`requestAnimationFrame` never runs in a background tab.** The flow-field
   canvases are warmed 300 steps before the loop starts, which also fixes first
   paint and reduced-motion.
@@ -120,6 +129,23 @@ It once matched only untracked (`??`) paths. That was survivable while the
 importer only ever adds folders, but it silently normalises nothing the moment
 anyone passes `--overwrite`, or re-runs it locally over committed pages.
 
+### What the committed .bib is not
+
+A fresh Scopus export is not what is in the repo, and re-exporting over it
+undoes two deliberate passes:
+
+- **URLs point at `https://doi.org/<doi>`**, not at Scopus. 159 were rewritten;
+  23 entries keep a Scopus link only because they have no DOI. Percent-encode
+  the DOI into the URL — five Wiley SICI DOIs carry `<`, `>` or `#`, and a raw
+  `#` truncates the URL into a 404.
+- **Titles are sentence case with no trailing full stop.** Scopus exports
+  Title Case, sometimes ALL CAPS. Which words keep a capital was settled from
+  the corpus — the abstracts are prose, so a word's mid-sentence form there
+  says whether it is ordinary, a name or an acronym.
+
+Re-export when you need new papers or fresh abstracts, then redo both passes
+before committing.
+
 ### How an author's name is written
 
 **`canonical` in `author-aliases.yaml` is the published name.** What the site
@@ -154,6 +180,42 @@ each noted on its own entry in `author-aliases.yaml`. Two spellings of
 belongs — the canonical is corrected, but the variants must keep the Greek
 character or they match nothing.
 
+## Theses
+
+`theses.bib` sits at the repo root beside `publications.bib`: 196 completed
+theses from Zotero, 156 diploma, 17 MSc, 23 doctoral, 1982–2026. Nothing in
+progress is recorded there — the page's ongoing rows are hand-written.
+
+**It is not wired to anything yet.** `content/theses/_index.md` still carries
+twelve invented placeholder rows inline in its `bf-rows` block.
+
+**`academic import` cannot be used for it** — tested, not assumed. It keeps
+title, author, year and keywords, and discards `type` and `note`, which is
+where the level and the supervisor live. The route is a script producing
+`data/theses.yaml`, plus an optional `data:` key on `bf-rows` so the block
+reads site data instead of an inline list.
+
+The field contract, all of it reproducible from Zotero so a re-export does not
+undo it:
+
+| BibTeX | Zotero field | Carries |
+|---|---|---|
+| `type` | Type | `Diploma thesis` / `MSc thesis` / `PhD thesis` |
+| `url`, `doi` | URL, DOI | the DSpace@NTUA permalink (109 of 196 have one) |
+| `note` | Extra | `Key: value` lines, one block |
+
+`author` and `title` hold the **Greek** name and title — the record as the
+university holds it, and what the Greek pages will show. `Author-EN` and
+`Title-EN` in the note are what the English pages read, alongside `Supervisor`
+and `Research area`; everything below those lines is provenance and is never
+rendered. 52 English titles come from DSpace and 144 are translations; 20
+names had no Latin form on record. Each says which in its own `-source` line.
+
+Zotero's own export was unusable: every entry typed `@phdthesis` because Type
+was empty, the real values split across up to ten repeated `annote` fields
+(not valid BibTeX), and the advisor sitting in `keywords`, where a Greek name
+split on its own comma into two tags.
+
 ## Open decisions
 
 - **`.hbb-section` padding.** Because of the `blox-_` landmine, every `bf-*`
@@ -165,10 +227,19 @@ character or they match nothing.
   would fix it.
 - **External co-authors** each get a thin author page. HugoBlox's own
   convention, but it scales badly with real papers.
-- Content is still placeholder throughout: names, bios, projects, equipment,
-  partners and logos, course codes, the NTUA room and map coordinates
-  (`TODO` in `params.yaml`), and the lab email. Contact details in
-  `data/authors/` read `TODO` — `grep -rn TODO data/authors/`.
+- **The people are real; everything about them is not.** Ten profiles across
+  Professors, Staff and PhD Students, plus the publication record behind them.
+  Their bios, contact details, ORCID and LinkedIn are all `TODO`, and the
+  interests were read off each person's own papers rather than supplied —
+  `grep -rn TODO data/authors/`. Four starter placeholders are kept on purpose
+  so the MSc and Alumni groups still render.
+- **Projects, theses and lab notes are invented.** Six project cards, twelve
+  thesis rows and three homepage news items are written inline in page front
+  matter and read as real. They are not labelled as examples, unlike the
+  starter's `Example: …` pages, which is the more dangerous of the two.
+- Still placeholder: equipment, partners and logos, course codes, the NTUA
+  room and map coordinates (`TODO` in `params.yaml`), and the lab email.
+- `/news/` has three items, all of them examples.
 
 ## Conventions
 
